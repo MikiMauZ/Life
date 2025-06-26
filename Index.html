@@ -1,0 +1,3784 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFE ERP - Logistics Integrated For Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Layout Principal */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 1000;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-header .subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .sidebar-nav {
+            padding: 16px 0;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: #e0f2fe;
+            color: var(--primary);
+            border-right: 3px solid var(--primary);
+        }
+
+        .nav-item i {
+            width: 20px;
+            margin-right: 12px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px;
+            display: none;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-details {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
+        }
+
+        /* Content Area */
+        .content {
+            padding: 24px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .screen-content {
+            display: none;
+        }
+
+        .screen-content.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--border);
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-large {
+            padding: 14px 28px;
+            font-size: 16px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--card-bg);
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-checkbox, .form-radio {
+            margin-right: 8px;
+        }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-1 { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text-primary);
+            position: sticky;
+            top: 0;
+        }
+
+        .table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 4px;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 20px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--error);
+        }
+
+        .toast.warning {
+            background: var(--warning);
+        }
+
+        .toast.info {
+            background: var(--primary);
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-approved {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-delivered {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-ordered {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        /* Stock Indicators */
+        .stock-critical {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+        .stock-low {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .stock-good {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Center Cards */
+        .center-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            transition: box-shadow 0.2s;
+        }
+
+        .center-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .center-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .center-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .center-type {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .center-details {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .center-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Quantity Controls */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: var(--border);
+        }
+
+        .quantity-input {
+            width: 80px;
+            text-align: center;
+            padding: 6px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .header {
+                padding: 12px 16px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .card-content {
+                padding: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 10px;
+                max-width: none;
+            }
+
+            .modal-body {
+                padding: 16px;
+            }
+
+            .center-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-card {
+                padding: 24px;
+            }
+
+            .checkbox-group, .radio-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-left { text-align: left; }
+        .font-bold { font-weight: 700; }
+        .font-medium { font-weight: 500; }
+        .text-sm { font-size: 14px; }
+        .text-xs { font-size: 12px; }
+        .text-lg { font-size: 18px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mt-4 { margin-top: 16px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mt-2 { margin-top: 8px; }
+        .hidden { display: none; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 8px; }
+        .gap-4 { gap: 16px; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .text-secondary { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1 class="login-title">LIFE ERP</h1>
+                    <p class="login-subtitle">Logistics Integrated For Excellence</p>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" required placeholder="usuario@empresa.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" id="loginPassword" class="form-input" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large w-full">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Iniciar Sesión
+                    </button>
+                </form>
+                <div id="loginLoading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Autenticando...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="appScreen" class="screen">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h1>LIFE ERP</h1>
+                    <p class="subtitle">Logistics Excellence</p>
+                </div>
+                <nav class="sidebar-nav" id="sidebarNav">
+                    <!-- Navigation will be populated by JavaScript -->
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content" id="mainContent">
+                <!-- Header -->
+                <header class="header">
+                    <div class="header-left">
+                        <button class="menu-toggle" id="menuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                    </div>
+                    <div class="header-center" style="display: flex; align-items: center; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-building" style="color: var(--text-secondary);"></i>
+                            <select id="globalCenterFilter" class="form-select" style="min-width: 200px;">
+                                <option value="">Todos los centros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-details">
+                            <div class="user-name" id="userName">Usuario</div>
+                            <div class="user-role" id="userRole">Rol</div>
+                        </div>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Salir
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Content -->
+                <div class="content">
+                    <!-- Dashboard Screen -->
+                    <div id="dashboardContent" class="screen-content active">
+                        <div class="stats-grid" id="dashboardStats">
+                            <!-- Stats will be populated by JavaScript -->
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">Resumen de Actividad</h2>
+                                </div>
+                                <div class="card-content">
+                                    <div id="activitySummary">
+                                        <p class="text-center text-secondary">Cargando datos...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">Alertas y Notificaciones</h2>
+                                </div>
+                                <div class="card-content">
+                                    <div id="alertsList">
+                                        <p class="text-center text-secondary">Sin alertas pendientes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Centers Management Screen -->
+                    <div id="centersContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Gestión de Centros</h2>
+                                <button class="btn btn-primary" id="addCenterBtn">
+                                    <i class="fas fa-plus"></i>
+                                    Nuevo Centro
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div id="centersGrid" class="grid-2">
+                                    <!-- Centers will be populated here -->
+                                </div>
+                                <div id="centersLoading" class="loading">
+                                    <div class="spinner"></div>
+                                    <p>Cargando centros...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Users Management Screen -->
+                    <div id="usersContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Gestión de Usuarios</h2>
+                                <button class="btn btn-primary" id="addUserBtn">
+                                    <i class="fas fa-user-plus"></i>
+                                    Nuevo Usuario
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div class="table-container">
+                                    <table class="table" id="usersTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Email</th>
+                                                <th>Rol</th>
+                                                <th>Centros Asignados</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="usersTableBody">
+                                            <!-- Users will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="usersLoading" class="loading">
+                                    <div class="spinner"></div>
+                                    <p>Cargando usuarios...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inventory Screen -->
+                    <div id="inventoryContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Inventario</h2>
+                                <div class="flex gap-2">
+                                    <select id="departmentFilter" class="form-select" style="width: auto;">
+                                        <option value="">Todos los departamentos</option>
+                                    </select>
+                                    <button class="btn btn-primary" id="addInventoryBtn">
+                                        <i class="fas fa-plus"></i>
+                                        Nuevo Producto
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="table-container">
+                                    <table class="table" id="inventoryTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Centro</th>
+                                                <th>Departamento</th>
+                                                <th>Stock Actual</th>
+                                                <th>Mín / Máx</th>
+                                                <th>Fecha Vencimiento</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="inventoryTableBody">
+                                            <!-- Inventory items will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="inventoryLoading" class="loading">
+                                    <div class="spinner"></div>
+                                    <p>Cargando inventario...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Orders Screen -->
+                    <div id="ordersContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Pedidos</h2>
+                                <button class="btn btn-primary" id="addOrderBtn">
+                                    <i class="fas fa-plus"></i>
+                                    Nuevo Pedido
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div class="table-container">
+                                    <table class="table" id="ordersTable">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Pedido</th>
+                                                <th>Centro</th>
+                                                <th>Fecha</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th>Creado por</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ordersTableBody">
+                                            <!-- Orders will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="ordersLoading" class="loading">
+                                    <div class="spinner"></div>
+                                    <p>Cargando pedidos...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuration Screen -->
+                    <div id="configContent" class="screen-content">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">Configuración Global</h2>
+                                </div>
+                                <div class="card-content">
+                                    <form id="globalConfigForm">
+                                        <div class="form-group">
+                                            <label class="form-label">Categorías de Productos</label>
+                                            <div id="categoriesList">
+                                                <!-- Categories will be populated here -->
+                                            </div>
+                                            <button type="button" class="btn btn-outline btn-small" id="addCategoryBtn">
+                                                <i class="fas fa-plus"></i>
+                                                Añadir Categoría
+                                            </button>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Departamentos Disponibles</label>
+                                            <div id="departmentsList">
+                                                <!-- Departments will be populated here -->
+                                            </div>
+                                            <button type="button" class="btn btn-outline btn-small" id="addDepartmentBtn">
+                                                <i class="fas fa-plus"></i>
+                                                Añadir Departamento
+                                            </button>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save"></i>
+                                            Guardar Configuración
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">Templates de Centro</h2>
+                                </div>
+                                <div class="card-content">
+                                    <div id="templatesGrid">
+                                        <div class="center-card">
+                                            <div class="center-header">
+                                                <div>
+                                                    <div class="center-name">Template Clínica</div>
+                                                    <div class="center-type">CLINICA</div>
+                                                </div>
+                                                <span class="badge badge-active">Predefinido</span>
+                                            </div>
+                                            <div class="center-details">
+                                                <p><i class="fas fa-building"></i> Enfermería, Quirófano, Farmacia, Limpieza</p>
+                                                <p><i class="fas fa-boxes"></i> Material Sanitario, Farmacia, Limpieza</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="center-card">
+                                            <div class="center-header">
+                                                <div>
+                                                    <div class="center-name">Template Residencia</div>
+                                                    <div class="center-type">RESIDENCIA</div>
+                                                </div>
+                                                <span class="badge badge-active">Predefinido</span>
+                                            </div>
+                                            <div class="center-details">
+                                                <p><i class="fas fa-building"></i> Enfermería, Cocina, Limpieza, Lavandería</p>
+                                                <p><i class="fas fa-boxes"></i> Alimentario, Material Sanitario, Textil</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="center-card">
+                                            <div class="center-header">
+                                                <div>
+                                                    <div class="center-name">Template Hotel</div>
+                                                    <div class="center-type">HOTEL</div>
+                                                </div>
+                                                <span class="badge badge-active">Predefinido</span>
+                                            </div>
+                                            <div class="center-details">
+                                                <p><i class="fas fa-building"></i> Recepción, Limpieza, Lavandería, Cocina</p>
+                                                <p><i class="fas fa-boxes"></i> Amenities, Limpieza, Alimentario, Textil</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Center Modal -->
+    <div id="addCenterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Centro</h3>
+                <button class="modal-close" onclick="closeModal('addCenterModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addCenterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nombre del Centro *</label>
+                            <input type="text" id="centerName" class="form-input" required placeholder="Ej: Clínica San José">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Centro *</label>
+                            <select id="centerType" class="form-select" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="CLINICA">Clínica</option>
+                                <option value="RESIDENCIA">Residencia</option>
+                                <option value="HOTEL">Hotel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dirección *</label>
+                        <input type="text" id="centerAddress" class="form-input" required placeholder="Calle, número, ciudad">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" id="centerPhone" class="form-input" placeholder="+34 600 000 000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email de Contacto</label>
+                            <input type="email" id="centerEmail" class="form-input" placeholder="contacto@centro.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Departamentos *</label>
+                        <div class="checkbox-group" id="centerDepartments">
+                            <!-- Departments will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Administrador del Centro</label>
+                        <select id="centerAdmin" class="form-select">
+                            <option value="">Seleccionar administrador</option>
+                            <!-- Users will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notas</label>
+                        <textarea id="centerNotes" class="form-textarea" placeholder="Información adicional sobre el centro..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addCenterModal')">Cancelar</button>
+                <button type="submit" form="addCenterForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Crear Centro
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Usuario</h3>
+                <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nombre Completo *</label>
+                            <input type="text" id="userName" class="form-input" required placeholder="Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" id="userEmail" class="form-input" required placeholder="usuario@empresa.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Rol *</label>
+                            <select id="userRole" class="form-select" required>
+                                <option value="">Seleccionar rol</option>
+                                <option value="LIFE_ADMIN">LIFE Admin</option>
+                                <option value="CENTER_ADMIN">Center Admin</option>
+                                <option value="CLIENT_VIEWER">Client Viewer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contraseña Temporal *</label>
+                            <input type="password" id="userPassword" class="form-input" required placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Centros Asignados</label>
+                        <div class="checkbox-group" id="userCenters">
+                            <!-- Centers will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Departamento</label>
+                        <input type="text" id="userDepartment" class="form-input" placeholder="Ej: Enfermería, Administración">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addUserModal')">Cancelar</button>
+                <button type="submit" form="addUserForm" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i>
+                    Crear Usuario
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Inventory Modal -->
+    <div id="addInventoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Producto en Inventario</h3>
+                <button class="modal-close" onclick="closeModal('addInventoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addInventoryForm">
+                    <div class="form-row" id="inventoryCenterRow">
+                        <div class="form-group">
+                            <label class="form-label">Centro *</label>
+                            <select id="inventoryCenter" class="form-select" required>
+                                <option value="">Seleccionar centro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Departamento *</label>
+                            <select id="inventoryDepartment" class="form-select" required>
+                                <option value="">Seleccionar departamento</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="inventoryDepartmentOnly" style="display: none;">
+                        <label class="form-label">Departamento *</label>
+                        <select id="inventoryDepartmentAlt" class="form-select" required>
+                            <option value="">Seleccionar departamento</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nombre del Producto *</label>
+                            <input type="text" id="inventoryProduct" class="form-input" required placeholder="Ej: Gasas estériles 10x10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categoría *</label>
+                            <select id="inventoryCategory" class="form-select" required>
+                                <option value="">Seleccionar categoría</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Stock Actual *</label>
+                            <input type="number" id="inventoryStock" class="form-input" required min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Stock Mínimo *</label>
+                            <input type="number" id="inventoryMinStock" class="form-input" required min="0" placeholder="10">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Stock Máximo *</label>
+                            <input type="number" id="inventoryMaxStock" class="form-input" required min="0" placeholder="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha de Vencimiento</label>
+                            <input type="date" id="inventoryExpiry" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Código/Lote</label>
+                            <input type="text" id="inventoryLot" class="form-input" placeholder="Código de lote o referencia">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ubicación</label>
+                            <input type="text" id="inventoryLocation" class="form-input" placeholder="Ej: Almacén A, Estante 2">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="inventoryNotes" class="form-textarea" placeholder="Notas adicionales sobre el producto..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addInventoryModal')">Cancelar</button>
+                <button type="submit" form="addInventoryForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Añadir Producto
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Order Modal -->
+    <div id="addOrderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Pedido</h3>
+                <button class="modal-close" onclick="closeModal('addOrderModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addOrderForm">
+                    <div class="form-group" id="orderCenterGroup">
+                        <label class="form-label">Centro *</label>
+                        <select id="orderCenter" class="form-select" required>
+                            <option value="">Seleccionar centro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Productos del Pedido</label>
+                        <div id="orderItems">
+                            <div class="order-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: end;">
+                                <div style="flex: 1;">
+                                    <label class="form-label text-xs">Producto</label>
+                                    <input type="text" class="form-input order-product" placeholder="Nombre del producto" required>
+                                </div>
+                                <div style="width: 100px;">
+                                    <label class="form-label text-xs">Cantidad</label>
+                                    <input type="number" class="form-input order-quantity" placeholder="1" min="1" required>
+                                </div>
+                                <div style="width: 120px;">
+                                    <label class="form-label text-xs">Urgencia</label>
+                                    <select class="form-select order-urgency">
+                                        <option value="normal">Normal</option>
+                                        <option value="urgente">Urgente</option>
+                                        <option value="critico">Crítico</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn btn-danger btn-small" onclick="removeOrderItem(this)" style="height: 38px;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline btn-small" onclick="addOrderItem()">
+                            <i class="fas fa-plus"></i>
+                            Añadir Producto
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="orderNotes" class="form-textarea" placeholder="Información adicional sobre el pedido..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addOrderModal')">Cancelar</button>
+                <button type="submit" form="addOrderForm" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i>
+                    Crear Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Stock Modal -->
+    <div id="editStockModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Actualizar Stock</h3>
+                <button class="modal-close" onclick="closeModal('editStockModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-4">
+                    <h4 id="stockProductName" class="font-medium"></h4>
+                    <p class="text-sm text-secondary" id="stockProductDetails"></p>
+                </div>
+
+                <form id="editStockForm">
+                    <div class="form-group">
+                        <label class="form-label">Stock Actual</label>
+                        <div class="quantity-control">
+                            <button type="button" class="quantity-btn" onclick="adjustStock(-1)">-</button>
+                            <input type="number" id="stockQuantity" class="quantity-input" min="0" required>
+                            <button type="button" class="quantity-btn" onclick="adjustStock(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Motivo del Cambio</label>
+                        <select id="stockReason" class="form-select" required>
+                            <option value="">Seleccionar motivo</option>
+                            <option value="recepcion">Recepción de mercancía</option>
+                            <option value="consumo">Consumo normal</option>
+                            <option value="caducidad">Retirada por caducidad</option>
+                            <option value="rotura">Rotura o deterioro</option>
+                            <option value="inventario">Ajuste de inventario</option>
+                            <option value="devolucion">Devolución</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="stockNotes" class="form-textarea" placeholder="Detalles del cambio de stock..."></textarea>
+                    </div>
+
+                    <input type="hidden" id="stockItemId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editStockModal')">Cancelar</button>
+                <button type="submit" form="editStockForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Actualizar Stock
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged, 
+            createUserWithEmailAndPassword 
+        } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            getDocs, 
+            doc, 
+            updateDoc, 
+            deleteDoc, 
+            query, 
+            where, 
+            orderBy, 
+            setDoc,
+            getDoc,
+            limit,
+            serverTimestamp 
+        } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0OHpzGIoKanftbiUR6GDGnm36uC5UaI0",
+            authDomain: "lifelogxd.firebaseapp.com",
+            projectId: "lifelogxd",
+            storageBucket: "lifelogxd.firebasestorage.app",
+            messagingSenderId: "831585354400",
+            appId: "1:831585354400:web:c7f871519b432e95ca7fc5",
+            measurementId: "G-5VZSDJNZEM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Global State
+        let currentUser = null;
+        let userData = null;
+        let currentScreen = 'dashboard';
+        let selectedCenterId = '';
+        let allCenters = [];
+        let allInventoryItems = [];
+        let allOrders = [];
+        let allUsers = [];
+        let globalConfig = {
+            categories: ['material_sanitario', 'alimentario', 'limpieza', 'farmacia', 'amenities', 'textil', 'mantenimiento'],
+            departments: ['enfermeria', 'quirofano', 'farmacia', 'cocina', 'limpieza', 'mantenimiento', 'lavanderia', 'recepcion']
+        };
+
+        // Navigation Configuration
+        const navigationConfig = {
+            LIFE_ADMIN: [
+                { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-home' },
+                { id: 'centers', label: 'Centros', icon: 'fas fa-building' },
+                { id: 'users', label: 'Usuarios', icon: 'fas fa-users' },
+                { id: 'inventory', label: 'Inventario', icon: 'fas fa-boxes' },
+                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' },
+                { id: 'config', label: 'Configuración', icon: 'fas fa-cog' }
+            ],
+            CENTER_ADMIN: [
+                { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-home' },
+                { id: 'users', label: 'Mi Equipo', icon: 'fas fa-users' },
+                { id: 'inventory', label: 'Inventario', icon: 'fas fa-boxes' },
+                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' }
+            ],
+            CLIENT_VIEWER: [
+                { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-home' },
+                { id: 'inventory', label: 'Inventario', icon: 'fas fa-boxes' },
+                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' }
+            ]
+        };
+
+        // Initialize App
+        function initApp() {
+            setupEventListeners();
+            checkAuthState();
+            loadGlobalConfig();
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Login Form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+            // Menu Toggle
+            document.getElementById('menuToggle').addEventListener('click', toggleSidebar);
+
+            // Modal Forms
+            document.getElementById('addCenterForm').addEventListener('submit', handleAddCenter);
+            document.getElementById('addUserForm').addEventListener('submit', handleAddUser);
+            document.getElementById('addInventoryForm').addEventListener('submit', handleAddInventory);
+            document.getElementById('addOrderForm').addEventListener('submit', handleAddOrder);
+            document.getElementById('editStockForm').addEventListener('submit', handleEditStock);
+
+            // Modal Buttons
+            document.getElementById('addCenterBtn').addEventListener('click', () => openModal('addCenterModal'));
+            document.getElementById('addUserBtn').addEventListener('click', () => openModal('addUserModal'));
+            document.getElementById('addInventoryBtn').addEventListener('click', () => openModal('addInventoryModal'));
+            document.getElementById('addOrderBtn').addEventListener('click', () => openModal('addOrderModal'));
+
+            // Center type change
+            document.getElementById('centerType').addEventListener('change', handleCenterTypeChange);
+
+            // Global center filter
+            document.getElementById('globalCenterFilter').addEventListener('change', handleGlobalCenterFilter);
+            
+            // Filters
+            document.getElementById('departmentFilter').addEventListener('change', filterInventory);
+
+            // Global config
+            document.getElementById('globalConfigForm').addEventListener('submit', handleGlobalConfig);
+            document.getElementById('addCategoryBtn').addEventListener('click', addCategoryField);
+            document.getElementById('addDepartmentBtn').addEventListener('click', addDepartmentField);
+        }
+
+        // Authentication Functions
+        async function handleLogin(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            showLoading('loginLoading');
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Get user data from Firestore
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                    currentUser = user;
+                    showApp();
+                } else {
+                    throw new Error('Usuario no encontrado en la base de datos');
+                }
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+                showToast('Error al iniciar sesión: ' + error.message, 'error');
+            } finally {
+                hideLoading('loginLoading');
+            }
+        }
+
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+                currentUser = null;
+                userData = null;
+                showLogin();
+                showToast('Sesión cerrada correctamente', 'success');
+            } catch (error) {
+                console.error('Error al cerrar sesión:', error);
+                showToast('Error al cerrar sesión', 'error');
+            }
+        }
+
+        function checkAuthState() {
+            onAuthStateChanged(auth, async (user) => {
+                if (user && !currentUser) {
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (userDoc.exists()) {
+                        userData = userDoc.data();
+                        currentUser = user;
+                        showApp();
+                    } else {
+                        showLogin();
+                    }
+                } else if (!user) {
+                    showLogin();
+                }
+            });
+        }
+
+        // UI Functions
+        function showLogin() {
+            document.getElementById('loginScreen').classList.add('active');
+            document.getElementById('appScreen').classList.remove('active');
+        }
+
+        function showApp() {
+            document.getElementById('loginScreen').classList.remove('active');
+            document.getElementById('appScreen').classList.add('active');
+
+            setupNavigation();
+            updateUserInfo();
+            setupGlobalCenterFilter();
+            showScreen('dashboard');
+        }
+
+        async function setupGlobalCenterFilter() {
+            try {
+                let centersQuery = collection(db, 'centers');
+
+                if (userData.role !== 'LIFE_ADMIN') {
+                    centersQuery = query(centersQuery, where('id', 'in', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(centersQuery);
+                allCenters = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                const globalCenterFilter = document.getElementById('globalCenterFilter');
+                globalCenterFilter.innerHTML = '<option value="">Todos los centros</option>' +
+                    allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+
+                // Si el usuario solo tiene acceso a un centro, seleccionarlo automáticamente
+                if (userData.role !== 'LIFE_ADMIN' && allCenters.length === 1) {
+                    selectedCenterId = allCenters[0].id;
+                    globalCenterFilter.value = selectedCenterId;
+                }
+            } catch (error) {
+                console.error('Error setting up global center filter:', error);
+            }
+        }
+
+        function handleGlobalCenterFilter() {
+            selectedCenterId = document.getElementById('globalCenterFilter').value;
+            
+            // Recargar datos del screen actual con el nuevo filtro
+            loadScreenData(currentScreen);
+            
+            // Mostrar toast informativo
+            if (selectedCenterId) {
+                const selectedCenter = allCenters.find(c => c.id === selectedCenterId);
+                if (selectedCenter) {
+                    showToast(`Filtrando por: ${selectedCenter.name}`, 'info');
+                }
+            } else {
+                showToast('Mostrando todos los centros', 'info');
+            }
+        }
+
+        function setupNavigation() {
+            const sidebarNav = document.getElementById('sidebarNav');
+            const userRole = userData.role;
+            const navigation = navigationConfig[userRole] || [];
+
+            sidebarNav.innerHTML = '';
+
+            // Main navigation
+            const mainSection = document.createElement('div');
+            mainSection.className = 'nav-section';
+
+            const mainTitle = document.createElement('div');
+            mainTitle.className = 'nav-section-title';
+            mainTitle.textContent = 'Principal';
+            mainSection.appendChild(mainTitle);
+
+            navigation.forEach(item => {
+                const navItem = document.createElement('button');
+                navItem.className = 'nav-item';
+                navItem.innerHTML = `<i class="${item.icon}"></i> ${item.label}`;
+                navItem.onclick = () => showScreen(item.id);
+
+                if (item.id === currentScreen) {
+                    navItem.classList.add('active');
+                }
+
+                mainSection.appendChild(navItem);
+            });
+
+            sidebarNav.appendChild(mainSection);
+        }
+
+        function updateUserInfo() {
+            document.getElementById('userName').textContent = userData.name || userData.email;
+            document.getElementById('userRole').textContent = getRoleDisplayName(userData.role);
+        }
+
+        function getRoleDisplayName(role) {
+            const roleNames = {
+                'LIFE_ADMIN': 'Life Admin',
+                'CENTER_ADMIN': 'Center Admin',
+                'CLIENT_VIEWER': 'Client Viewer'
+            };
+            return roleNames[role] || role;
+        }
+
+        function showScreen(screenId) {
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.onclick.toString().includes(screenId)) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Update content
+            document.querySelectorAll('.screen-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const targetContent = document.getElementById(screenId + 'Content');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+
+            // Update page title
+            const pageTitle = document.getElementById('pageTitle');
+            const pageTitles = {
+                'dashboard': 'Dashboard',
+                'centers': 'Gestión de Centros',
+                'users': 'Gestión de Usuarios',
+                'inventory': 'Inventario',
+                'orders': 'Pedidos',
+                'config': 'Configuración'
+            };
+            pageTitle.textContent = pageTitles[screenId] || 'LIFE ERP';
+
+            currentScreen = screenId;
+
+            // Load data for the screen
+            loadScreenData(screenId);
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('show');
+            }
+        }
+
+        async function loadScreenData(screenId) {
+            switch (screenId) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'centers':
+                    loadCenters();
+                    break;
+                case 'users':
+                    loadUsers();
+                    break;
+                case 'inventory':
+                    loadInventory();
+                    break;
+                case 'orders':
+                    loadOrders();
+                    break;
+                case 'config':
+                    loadConfiguration();
+                    break;
+            }
+        }
+
+        // Dashboard Functions
+        async function loadDashboard() {
+            try {
+                const stats = await getDashboardStats();
+                renderDashboardStats(stats);
+
+                const activity = await getRecentActivity();
+                renderActivitySummary(activity);
+
+                const alerts = await getAlerts();
+                renderAlerts(alerts);
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showToast('Error al cargar el dashboard', 'error');
+            }
+        }
+
+        async function getDashboardStats() {
+            const stats = {
+                totalCenters: 0,
+                totalUsers: 0,
+                totalOrders: 0,
+                criticalStock: 0
+            };
+
+            try {
+                // Get centers
+                let centersQuery = collection(db, 'centers');
+                if (userData.role !== 'LIFE_ADMIN') {
+                    centersQuery = query(centersQuery, where('id', 'in', userData.centerIds || []));
+                }
+                const centersSnapshot = await getDocs(centersQuery);
+                stats.totalCenters = centersSnapshot.size;
+
+                // Get users
+                if (userData.role === 'LIFE_ADMIN') {
+                    const usersSnapshot = await getDocs(collection(db, 'users'));
+                    stats.totalUsers = usersSnapshot.size;
+                }
+
+                // Get orders
+                let ordersQuery = collection(db, 'orders');
+                if (userData.role !== 'LIFE_ADMIN') {
+                    ordersQuery = query(ordersQuery, where('centerId', 'in', userData.centerIds || []));
+                }
+                const ordersSnapshot = await getDocs(ordersQuery);
+                stats.totalOrders = ordersSnapshot.size;
+
+                // Get critical stock items
+                let inventoryQuery = collection(db, 'inventory');
+                if (userData.role !== 'LIFE_ADMIN') {
+                    inventoryQuery = query(inventoryQuery, where('centerId', 'in', userData.centerIds || []));
+                }
+                const inventorySnapshot = await getDocs(inventoryQuery);
+                stats.criticalStock = inventorySnapshot.docs.filter(doc => {
+                    const data = doc.data();
+                    return data.currentStock <= data.minStock;
+                }).length;
+
+            } catch (error) {
+                console.error('Error getting dashboard stats:', error);
+            }
+
+            return stats;
+        }
+
+        function renderDashboardStats(stats) {
+            const statsGrid = document.getElementById('dashboardStats');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <span class="stat-number">${stats.totalCenters}</span>
+                    <div class="stat-label">Centros</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">${stats.totalUsers}</span>
+                    <div class="stat-label">Usuarios</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">${stats.totalOrders}</span>
+                    <div class="stat-label">Pedidos</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number stock-critical">${stats.criticalStock}</span>
+                    <div class="stat-label">Stock Crítico</div>
+                </div>
+            `;
+        }
+
+        async function getRecentActivity() {
+            try {
+                let ordersQuery = query(
+                    collection(db, 'orders'),
+                    orderBy('createdAt', 'desc'),
+                    limit(5)
+                );
+
+                if (userData.role !== 'LIFE_ADMIN') {
+                    ordersQuery = query(
+                        collection(db, 'orders'),
+                        where('centerId', 'in', userData.centerIds || []),
+                        orderBy('createdAt', 'desc'),
+                        limit(5)
+                    );
+                }
+
+                const snapshot = await getDocs(ordersQuery);
+                return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            } catch (error) {
+                console.error('Error getting recent activity:', error);
+                return [];
+            }
+        }
+
+        function renderActivitySummary(activity) {
+            const container = document.getElementById('activitySummary');
+
+            if (activity.length === 0) {
+                container.innerHTML = '<p class="text-center text-secondary">No hay actividad reciente</p>';
+                return;
+            }
+
+            container.innerHTML = activity.map(order => `
+                <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <strong>Pedido #${order.id.substring(0, 8)}</strong>
+                            <span class="badge badge-${order.status}">${getStatusDisplayName(order.status)}</span>
+                        </div>
+                        <div class="text-sm text-secondary">
+                            ${formatDate(order.createdAt)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function getAlerts() {
+            const alerts = [];
+
+            try {
+                // Check for critical stock
+                let inventoryQuery = collection(db, 'inventory');
+                if (userData.role !== 'LIFE_ADMIN') {
+                    inventoryQuery = query(inventoryQuery, where('centerId', 'in', userData.centerIds || []));
+                }
+
+                const inventorySnapshot = await getDocs(inventoryQuery);
+                inventorySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.currentStock <= data.minStock) {
+                        alerts.push({
+                            type: 'warning',
+                            message: `Stock bajo: ${data.productName} en ${data.centerName}`,
+                            timestamp: new Date()
+                        });
+                    }
+
+                    // Check expiry dates
+                    if (data.expiryDate) {
+                        const expiryDate = new Date(data.expiryDate);
+                        const now = new Date();
+                        const daysUntilExpiry = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
+
+                        if (daysUntilExpiry <= 7 && daysUntilExpiry > 0) {
+                            alerts.push({
+                                type: 'error',
+                                message: `${data.productName} vence en ${daysUntilExpiry} días`,
+                                timestamp: new Date()
+                            });
+                        }
+                    }
+                });
+
+                // Check for pending orders
+                let ordersQuery = query(collection(db, 'orders'), where('status', '==', 'pending'));
+                if (userData.role !== 'LIFE_ADMIN') {
+                    ordersQuery = query(
+                        collection(db, 'orders'),
+                        where('centerId', 'in', userData.centerIds || []),
+                        where('status', '==', 'pending')
+                    );
+                }
+
+                const ordersSnapshot = await getDocs(ordersQuery);
+                if (ordersSnapshot.size > 0) {
+                    alerts.push({
+                        type: 'info',
+                        message: `${ordersSnapshot.size} pedidos pendientes de aprobación`,
+                        timestamp: new Date()
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error getting alerts:', error);
+            }
+
+            return alerts.slice(0, 5); // Limit to 5 alerts
+        }
+
+        function renderAlerts(alerts) {
+            const container = document.getElementById('alertsList');
+
+            if (alerts.length === 0) {
+                container.innerHTML = '<p class="text-center text-secondary">Sin alertas pendientes</p>';
+                return;
+            }
+
+            container.innerHTML = alerts.map(alert => `
+                <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-${getAlertIcon(alert.type)}" style="color: var(--${alert.type === 'info' ? 'primary' : alert.type});"></i>
+                        <span class="text-sm">${alert.message}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getAlertIcon(type) {
+            const icons = {
+                'error': 'exclamation-triangle',
+                'warning': 'exclamation-circle',
+                'info': 'info-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        // Centers Functions
+        async function loadCenters() {
+            showLoading('centersLoading');
+
+            try {
+                let centersQuery = collection(db, 'centers');
+
+                if (userData.role !== 'LIFE_ADMIN') {
+                    centersQuery = query(centersQuery, where('id', 'in', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(centersQuery);
+                const centers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderCenters(centers);
+            } catch (error) {
+                console.error('Error loading centers:', error);
+                showToast('Error al cargar centros', 'error');
+            } finally {
+                hideLoading('centersLoading');
+            }
+        }
+
+        function renderCenters(centers) {
+            const centersGrid = document.getElementById('centersGrid');
+
+            if (centers.length === 0) {
+                centersGrid.innerHTML = '<p class="text-center text-secondary">No hay centros registrados</p>';
+                return;
+            }
+
+            centersGrid.innerHTML = centers.map(center => `
+                <div class="center-card">
+                    <div class="center-header">
+                        <div>
+                            <div class="center-name">${center.name}</div>
+                            <div class="center-type">${center.type}</div>
+                        </div>
+                        <span class="badge badge-${center.isActive ? 'active' : 'inactive'}">
+                            ${center.isActive ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </div>
+                    <div class="center-details">
+                        <p><i class="fas fa-map-marker-alt"></i> ${center.address}</p>
+                        ${center.phone ? `<p><i class="fas fa-phone"></i> ${center.phone}</p>` : ''}
+                        ${center.email ? `<p><i class="fas fa-envelope"></i> ${center.email}</p>` : ''}
+                        <p><i class="fas fa-building"></i> ${center.departments?.join(', ') || 'Sin departamentos'}</p>
+                    </div>
+                    <div class="center-actions">
+                        ${userData.role === 'LIFE_ADMIN' ? `
+                            <button class="btn btn-small btn-outline" onclick="editCenter('${center.id}')">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn btn-small ${center.isActive ? 'btn-warning' : 'btn-success'}" 
+                                    onclick="toggleCenterStatus('${center.id}', ${!center.isActive})">
+                                <i class="fas fa-${center.isActive ? 'pause' : 'play'}"></i>
+                                ${center.isActive ? 'Desactivar' : 'Activar'}
+                            </button>
+                        ` : ''}
+                        <button class="btn btn-small btn-primary" onclick="viewCenterDetails('${center.id}')">
+                            <i class="fas fa-eye"></i> Ver
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function handleAddCenter(e) {
+            e.preventDefault();
+
+            if (userData.role !== 'LIFE_ADMIN') {
+                showToast('No tienes permisos para crear centros', 'error');
+                return;
+            }
+
+            const departments = Array.from(document.querySelectorAll('#centerDepartments input:checked'))
+                .map(input => input.value);
+
+            if (departments.length === 0) {
+                showToast('Selecciona al menos un departamento', 'error');
+                return;
+            }
+
+            const centerData = {
+                name: document.getElementById('centerName').value,
+                type: document.getElementById('centerType').value,
+                address: document.getElementById('centerAddress').value,
+                phone: document.getElementById('centerPhone').value,
+                email: document.getElementById('centerEmail').value,
+                departments: departments,
+                adminId: document.getElementById('centerAdmin').value,
+                isActive: true,
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                notes: document.getElementById('centerNotes').value
+            };
+
+            try {
+                const docRef = await addDoc(collection(db, 'centers'), centerData);
+
+                // Update center document with its own ID
+                await updateDoc(doc(db, 'centers', docRef.id), {
+                    id: docRef.id
+                });
+
+                showToast('Centro creado correctamente', 'success');
+                closeModal('addCenterModal');
+                loadCenters();
+
+                // Reset form
+                e.target.reset();
+            } catch (error) {
+                console.error('Error creating center:', error);
+                showToast('Error al crear centro', 'error');
+            }
+        }
+
+        function handleCenterTypeChange() {
+            const centerType = document.getElementById('centerType').value;
+            const departmentsContainer = document.getElementById('centerDepartments');
+
+            // Default departments by center type
+            const defaultDepartments = {
+                'CLINICA': ['enfermeria', 'quirofano', 'farmacia', 'limpieza', 'mantenimiento'],
+                'RESIDENCIA': ['enfermeria', 'cocina', 'limpieza', 'lavanderia', 'mantenimiento'],
+                'HOTEL': ['recepcion', 'limpieza', 'lavanderia', 'mantenimiento', 'cocina']
+            };
+
+            const departments = defaultDepartments[centerType] || globalConfig.departments;
+
+            departmentsContainer.innerHTML = departments.map(dept => `
+                <div class="checkbox-item">
+                    <input type="checkbox" value="${dept}" id="dept_${dept}" ${departments.includes(dept) ? 'checked' : ''}>
+                    <label for="dept_${dept}">${formatDepartmentName(dept)}</label>
+                </div>
+            `).join('');
+        }
+
+        async function toggleCenterStatus(centerId, newStatus) {
+            try {
+                await updateDoc(doc(db, 'centers', centerId), {
+                    isActive: newStatus,
+                    updatedAt: serverTimestamp()
+                });
+
+                showToast(`Centro ${newStatus ? 'activado' : 'desactivado'} correctamente`, 'success');
+                loadCenters();
+            } catch (error) {
+                console.error('Error updating center status:', error);
+                showToast('Error al actualizar estado del centro', 'error');
+            }
+        }
+
+        // Users Functions
+        async function loadUsers() {
+            showLoading('usersLoading');
+
+            try {
+                let usersQuery = collection(db, 'users');
+
+                // Filter users based on role and global center filter
+                if (selectedCenterId) {
+                    usersQuery = query(usersQuery, where('centerIds', 'array-contains', selectedCenterId));
+                } else if (userData.role === 'CENTER_ADMIN') {
+                    // Center admins can only see users from their centers
+                    usersQuery = query(usersQuery, where('centerIds', 'array-contains-any', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(usersQuery);
+                allUsers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderUsers(allUsers);
+                populateUserCenters();
+            } catch (error) {
+                console.error('Error loading users:', error);
+                showToast('Error al cargar usuarios', 'error');
+            } finally {
+                hideLoading('usersLoading');
+            }
+        }
+
+        function renderUsers(users) {
+            const usersTableBody = document.getElementById('usersTableBody');
+
+            if (users.length === 0) {
+                usersTableBody.innerHTML = '<tr><td colspan="6" class="text-center text-secondary">No hay usuarios registrados</td></tr>';
+                return;
+            }
+
+            usersTableBody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.name || 'Sin nombre'}</td>
+                    <td>${user.email}</td>
+                    <td><span class="badge badge-active">${getRoleDisplayName(user.role)}</span></td>
+                    <td>${user.centerIds?.length || 0} centros</td>
+                    <td><span class="badge badge-active">Activo</span></td>
+                    <td>
+                        <div class="flex gap-1">
+                            ${userData.role === 'LIFE_ADMIN' || canManageUser(user) ? `
+                                <button class="btn btn-small btn-outline" onclick="editUser('${user.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-small btn-danger" onclick="deleteUser('${user.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            ` : ''}
+                            <button class="btn btn-small btn-primary" onclick="viewUser('${user.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function canManageUser(user) {
+            if (userData.role === 'LIFE_ADMIN') return true;
+            if (userData.role === 'CENTER_ADMIN') {
+                // Center admins can manage users from their centers
+                return user.centerIds?.some(centerId => userData.centerIds?.includes(centerId));
+            }
+            return false;
+        }
+
+        async function populateUserCenters() {
+            try {
+                let centersQuery = collection(db, 'centers');
+
+                if (userData.role !== 'LIFE_ADMIN') {
+                    centersQuery = query(centersQuery, where('id', 'in', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(centersQuery);
+                const centers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                const userCentersContainer = document.getElementById('userCenters');
+                userCentersContainer.innerHTML = centers.map(center => `
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="${center.id}" id="center_${center.id}">
+                        <label for="center_${center.id}">${center.name}</label>
+                    </div>
+                `).join('');
+
+                // Also populate center admin select
+                const centerAdminSelect = document.getElementById('centerAdmin');
+                centerAdminSelect.innerHTML = '<option value="">Seleccionar administrador</option>' +
+                    centers.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+
+            } catch (error) {
+                console.error('Error populating centers:', error);
+            }
+        }
+
+        async function handleAddUser(e) {
+            e.preventDefault();
+
+            if (userData.role !== 'LIFE_ADMIN' && userData.role !== 'CENTER_ADMIN') {
+                showToast('No tienes permisos para crear usuarios', 'error');
+                return;
+            }
+
+            const selectedCenters = Array.from(document.querySelectorAll('#userCenters input:checked'))
+                .map(input => input.value);
+
+            const newUserData = {
+                name: document.getElementById('userName').value,
+                email: document.getElementById('userEmail').value,
+                role: document.getElementById('userRole').value,
+                centerIds: selectedCenters,
+                department: document.getElementById('userDepartment').value,
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                isActive: true
+            };
+
+            // Validate that center admin can only create users for their centers
+            if (userData.role === 'CENTER_ADMIN') {
+                const invalidCenters = selectedCenters.filter(centerId => !userData.centerIds?.includes(centerId));
+                if (invalidCenters.length > 0) {
+                    showToast('Solo puedes crear usuarios para tus centros asignados', 'error');
+                    return;
+                }
+            }
+
+            try {
+                const password = document.getElementById('userPassword').value;
+
+                // Create user in Firebase Auth
+                const userCredential = await createUserWithEmailAndPassword(auth, newUserData.email, password);
+                const newUser = userCredential.user;
+
+                // Create user document in Firestore
+                await setDoc(doc(db, 'users', newUser.uid), newUserData);
+
+                showToast('Usuario creado correctamente', 'success');
+                closeModal('addUserModal');
+                loadUsers();
+
+                // Reset form
+                e.target.reset();
+            } catch (error) {
+                console.error('Error creating user:', error);
+                let errorMessage = 'Error al crear usuario';
+
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'El email ya está en uso';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'La contraseña es muy débil';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Email inválido';
+                }
+
+                showToast(errorMessage, 'error');
+            }
+        }
+
+        // Inventory Functions
+        async function loadInventory() {
+            showLoading('inventoryLoading');
+
+            try {
+                let inventoryQuery = collection(db, 'inventory');
+
+                // Aplicar filtro global de centro si está seleccionado
+                if (selectedCenterId) {
+                    inventoryQuery = query(inventoryQuery, where('centerId', '==', selectedCenterId));
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    inventoryQuery = query(inventoryQuery, where('centerId', 'in', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(inventoryQuery);
+                allInventoryItems = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderInventory(allInventoryItems);
+                populateInventoryFilters();
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+                showToast('Error al cargar inventario', 'error');
+            } finally {
+                hideLoading('inventoryLoading');
+            }
+        }
+
+        function renderInventory(inventory) {
+            const inventoryTableBody = document.getElementById('inventoryTableBody');
+
+            if (inventory.length === 0) {
+                inventoryTableBody.innerHTML = '<tr><td colspan="8" class="text-center text-secondary">No hay productos en inventario</td></tr>';
+                return;
+            }
+
+            inventoryTableBody.innerHTML = inventory.map(item => {
+                const stockStatus = getStockStatus(item.currentStock, item.minStock, item.maxStock);
+                const expiryStatus = getExpiryStatus(item.expiryDate);
+
+                return `
+                    <tr>
+                        <td>
+                            <strong>${item.productName}</strong>
+                            <br><small class="text-secondary">${formatCategoryName(item.category)}</small>
+                        </td>
+                        <td>${item.centerName || 'Sin asignar'}</td>
+                        <td>${formatDepartmentName(item.department)}</td>
+                        <td>
+                            <span class="${stockStatus.class}">${item.currentStock}</span>
+                            <div class="quantity-control mt-1">
+                                <button class="quantity-btn" onclick="adjustInventoryStock('${item.id}', -1)">-</button>
+                                <span style="min-width: 40px; text-align: center; display: inline-block;">${item.currentStock}</span>
+                                <button class="quantity-btn" onclick="adjustInventoryStock('${item.id}', 1)">+</button>
+                            </div>
+                        </td>
+                        <td>${item.minStock} / ${item.maxStock}</td>
+                        <td>
+                            ${item.expiryDate ? `
+                                <span class="${expiryStatus.class}">${formatDate(item.expiryDate)}</span>
+                                <br><small>${expiryStatus.message}</small>
+                            ` : 'Sin fecha'}
+                        </td>
+                        <td>
+                            <span class="badge badge-${stockStatus.badge}">${stockStatus.label}</span>
+                        </td>
+                        <td>
+                            <div class="flex gap-1">
+                                <button class="btn btn-small btn-primary" onclick="editStock('${item.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                ${userData.role === 'LIFE_ADMIN' ? `
+                                    <button class="btn btn-small btn-danger" onclick="deleteInventoryItem('${item.id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getStockStatus(current, min, max) {
+            if (current <= min) {
+                return { class: 'stock-critical', badge: 'inactive', label: 'Crítico' };
+            } else if (current <= min * 1.5) {
+                return { class: 'stock-low', badge: 'pending', label: 'Bajo' };
+            } else {
+                return { class: 'stock-good', badge: 'active', label: 'Normal' };
+            }
+        }
+
+        function getExpiryStatus(expiryDate) {
+            if (!expiryDate) return { class: '', message: '' };
+
+            const expiry = new Date(expiryDate);
+            const now = new Date();
+            const daysUntilExpiry = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+
+            if (daysUntilExpiry < 0) {
+                return { class: 'stock-critical', message: 'Vencido' };
+            } else if (daysUntilExpiry <= 7) {
+                return { class: 'stock-critical', message: `Vence en ${daysUntilExpiry} días` };
+            } else if (daysUntilExpiry <= 30) {
+                return { class: 'stock-low', message: `Vence en ${daysUntilExpiry} días` };
+            } else {
+                return { class: 'stock-good', message: `Vence en ${daysUntilExpiry} días` };
+            }
+        }
+
+        async function populateInventoryFilters() {
+            try {
+                // Configurar modal según filtro global
+                const inventoryCenterRow = document.getElementById('inventoryCenterRow');
+                const inventoryDepartmentOnly = document.getElementById('inventoryDepartmentOnly');
+                const inventoryCenter = document.getElementById('inventoryCenter');
+
+                if (selectedCenterId) {
+                    // Si hay un centro seleccionado globalmente, ocultar selector de centro
+                    inventoryCenterRow.style.display = 'none';
+                    inventoryDepartmentOnly.style.display = 'block';
+                    
+                    // Pre-seleccionar el centro
+                    inventoryCenter.value = selectedCenterId;
+                } else {
+                    // Mostrar selector de centro
+                    inventoryCenterRow.style.display = 'flex';
+                    inventoryDepartmentOnly.style.display = 'none';
+
+                    // Populate inventory center select in modal
+                    inventoryCenter.innerHTML = '<option value="">Seleccionar centro</option>' +
+                        allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+                }
+
+                // Populate categories in modal
+                const inventoryCategory = document.getElementById('inventoryCategory');
+                inventoryCategory.innerHTML = '<option value="">Seleccionar categoría</option>' +
+                    globalConfig.categories.map(cat => `<option value="${cat}">${formatCategoryName(cat)}</option>`).join('');
+
+                // Populate departments in modal
+                const inventoryDepartmentSelect = document.getElementById('inventoryDepartment');
+                const inventoryDepartmentAlt = document.getElementById('inventoryDepartmentAlt');
+                
+                const departmentOptions = '<option value="">Seleccionar departamento</option>' +
+                    globalConfig.departments.map(dept => `<option value="${dept}">${formatDepartmentName(dept)}</option>`).join('');
+                
+                inventoryDepartmentSelect.innerHTML = departmentOptions;
+                inventoryDepartmentAlt.innerHTML = departmentOptions;
+
+            } catch (error) {
+                console.error('Error populating inventory filters:', error);
+            }
+        }
+
+        async function handleAddInventory(e) {
+            e.preventDefault();
+
+            // Determinar centro y departamento según el filtro global
+            const centerId = selectedCenterId || document.getElementById('inventoryCenter').value;
+            const department = selectedCenterId ? 
+                document.getElementById('inventoryDepartmentAlt').value : 
+                document.getElementById('inventoryDepartment').value;
+
+            const inventoryData = {
+                centerId: centerId,
+                department: department,
+                productName: document.getElementById('inventoryProduct').value,
+                category: document.getElementById('inventoryCategory').value,
+                currentStock: parseInt(document.getElementById('inventoryStock').value),
+                minStock: parseInt(document.getElementById('inventoryMinStock').value),
+                maxStock: parseInt(document.getElementById('inventoryMaxStock').value),
+                expiryDate: document.getElementById('inventoryExpiry').value || null,
+                lot: document.getElementById('inventoryLot').value,
+                location: document.getElementById('inventoryLocation').value,
+                notes: document.getElementById('inventoryNotes').value,
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                lastUpdated: serverTimestamp()
+            };
+
+            // Get center name
+            try {
+                const centerDoc = await getDoc(doc(db, 'centers', inventoryData.centerId));
+                if (centerDoc.exists()) {
+                    inventoryData.centerName = centerDoc.data().name;
+                }
+            } catch (error) {
+                console.error('Error getting center name:', error);
+            }
+
+            try {
+                await addDoc(collection(db, 'inventory'), inventoryData);
+
+                showToast('Producto añadido al inventario correctamente', 'success');
+                closeModal('addInventoryModal');
+                loadInventory();
+
+                // Reset form
+                e.target.reset();
+            } catch (error) {
+                console.error('Error adding inventory item:', error);
+                showToast('Error al añadir producto al inventario', 'error');
+            }
+        }
+
+        async function adjustInventoryStock(itemId, adjustment) {
+            try {
+                const itemRef = doc(db, 'inventory', itemId);
+                const itemDoc = await getDoc(itemRef);
+
+                if (itemDoc.exists()) {
+                    const currentData = itemDoc.data();
+                    const newStock = Math.max(0, currentData.currentStock + adjustment);
+
+                    await updateDoc(itemRef, {
+                        currentStock: newStock,
+                        lastUpdated: serverTimestamp()
+                    });
+
+                    loadInventory(); // Reload to show updated stock
+                }
+            } catch (error) {
+                console.error('Error adjusting stock:', error);
+                showToast('Error al ajustar stock', 'error');
+            }
+        }
+
+        async function editStock(itemId) {
+            try {
+                const itemDoc = await getDoc(doc(db, 'inventory', itemId));
+                if (itemDoc.exists()) {
+                    const itemData = itemDoc.data();
+
+                    // Populate modal with current data
+                    document.getElementById('stockProductName').textContent = itemData.productName;
+                    document.getElementById('stockProductDetails').textContent = 
+                        `${itemData.centerName || 'Sin centro'} - ${formatDepartmentName(itemData.department)}`;
+                    document.getElementById('stockQuantity').value = itemData.currentStock;
+                    document.getElementById('stockItemId').value = itemId;
+
+                    openModal('editStockModal');
+                }
+            } catch (error) {
+                console.error('Error loading item for edit:', error);
+                showToast('Error al cargar producto', 'error');
+            }
+        }
+
+        async function handleEditStock(e) {
+            e.preventDefault();
+
+            const itemId = document.getElementById('stockItemId').value;
+            const newStock = parseInt(document.getElementById('stockQuantity').value);
+            const reason = document.getElementById('stockReason').value;
+            const notes = document.getElementById('stockNotes').value;
+
+            try {
+                await updateDoc(doc(db, 'inventory', itemId), {
+                    currentStock: newStock,
+                    lastUpdated: serverTimestamp(),
+                    lastUpdateReason: reason,
+                    lastUpdateNotes: notes,
+                    lastUpdatedBy: currentUser.uid
+                });
+
+                showToast('Stock actualizado correctamente', 'success');
+                closeModal('editStockModal');
+                loadInventory();
+
+                // Reset form
+                e.target.reset();
+            } catch (error) {
+                console.error('Error updating stock:', error);
+                showToast('Error al actualizar stock', 'error');
+            }
+        }
+
+        function adjustStock(adjustment) {
+            const stockInput = document.getElementById('stockQuantity');
+            const currentValue = parseInt(stockInput.value) || 0;
+            const newValue = Math.max(0, currentValue + adjustment);
+            stockInput.value = newValue;
+        }
+
+        function filterInventory() {
+            const departmentFilter = document.getElementById('departmentFilter').value;
+
+            const rows = document.querySelectorAll('#inventoryTableBody tr');
+
+            rows.forEach(row => {
+                let shouldShow = true;
+
+                if (departmentFilter) {
+                    const departmentCell = row.cells[2]?.textContent || '';
+                    shouldShow = shouldShow && departmentCell.toLowerCase().includes(departmentFilter);
+                }
+
+                row.style.display = shouldShow ? '' : 'none';
+            });
+        }
+
+        // Orders Functions
+        async function loadOrders() {
+            showLoading('ordersLoading');
+
+            try {
+                let ordersQuery = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
+
+                // Aplicar filtro global de centro si está seleccionado
+                if (selectedCenterId) {
+                    ordersQuery = query(
+                        collection(db, 'orders'),
+                        where('centerId', '==', selectedCenterId),
+                        orderBy('createdAt', 'desc')
+                    );
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    ordersQuery = query(
+                        collection(db, 'orders'),
+                        where('centerId', 'in', userData.centerIds || []),
+                        orderBy('createdAt', 'desc')
+                    );
+                }
+
+                const snapshot = await getDocs(ordersQuery);
+                allOrders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderOrders(allOrders);
+                populateOrderCenters();
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showToast('Error al cargar pedidos', 'error');
+            } finally {
+                hideLoading('ordersLoading');
+            }
+        }
+
+        function renderOrders(orders) {
+            const ordersTableBody = document.getElementById('ordersTableBody');
+
+            if (orders.length === 0) {
+                ordersTableBody.innerHTML = '<tr><td colspan="7" class="text-center text-secondary">No hay pedidos registrados</td></tr>';
+                return;
+            }
+
+            ordersTableBody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>#${order.id.substring(0, 8)}</td>
+                    <td>${order.centerName || 'Sin asignar'}</td>
+                    <td>${formatDate(order.createdAt)}</td>
+                    <td>${formatCurrency(order.totalAmount || 0)}</td>
+                    <td><span class="badge badge-${order.status}">${getStatusDisplayName(order.status)}</span></td>
+                    <td>${order.createdByName || 'Sistema'}</td>
+                    <td>
+                        <div class="flex gap-1">
+                            <button class="btn btn-small btn-primary" onclick="viewOrder('${order.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            ${canManageOrder(order) ? `
+                                <button class="btn btn-small btn-outline" onclick="editOrder('${order.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                ${order.status === 'pending' ? `
+                                    <button class="btn btn-small btn-success" onclick="approveOrder('${order.id}')">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                ` : ''}
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function canManageOrder(order) {
+            if (userData.role === 'LIFE_ADMIN') return true;
+            if (userData.role === 'CENTER_ADMIN') {
+                return userData.centerIds?.includes(order.centerId);
+            }
+            return false;
+        }
+
+        async function populateOrderCenters() {
+            try {
+                const orderCenterGroup = document.getElementById('orderCenterGroup');
+                const orderCenter = document.getElementById('orderCenter');
+
+                if (selectedCenterId) {
+                    // Si hay un centro seleccionado globalmente, ocultar selector y pre-seleccionar
+                    orderCenterGroup.style.display = 'none';
+                    orderCenter.value = selectedCenterId;
+                    
+                    // Marcar como no requerido ya que está oculto
+                    orderCenter.removeAttribute('required');
+                } else {
+                    // Mostrar selector de centro
+                    orderCenterGroup.style.display = 'block';
+                    orderCenter.setAttribute('required', '');
+
+                    orderCenter.innerHTML = '<option value="">Seleccionar centro</option>' +
+                        allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+                }
+
+            } catch (error) {
+                console.error('Error populating order centers:', error);
+            }
+        }
+
+        async function handleAddOrder(e) {
+            e.preventDefault();
+
+            const centerId = selectedCenterId || document.getElementById('orderCenter').value;
+            const orderItems = [];
+
+            // Collect order items
+            document.querySelectorAll('.order-item').forEach(item => {
+                const product = item.querySelector('.order-product').value;
+                const quantity = parseInt(item.querySelector('.order-quantity').value);
+                const urgency = item.querySelector('.order-urgency').value;
+
+                if (product && quantity > 0) {
+                    orderItems.push({
+                        productName: product,
+                        quantity: quantity,
+                        urgency: urgency
+                    });
+                }
+            });
+
+            if (orderItems.length === 0) {
+                showToast('Añade al menos un producto al pedido', 'error');
+                return;
+            }
+
+            // Calculate total amount (simplified)
+            const totalAmount = orderItems.reduce((sum, item) => sum + (item.quantity * 10), 0); // €10 per item as placeholder
+
+            const orderData = {
+                centerId: centerId,
+                items: orderItems,
+                status: totalAmount > 500 ? 'pending' : 'approved', // Auto-approve orders under €500
+                totalAmount: totalAmount,
+                notes: document.getElementById('orderNotes').value,
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                createdByName: userData.name || userData.email
+            };
+
+            // Get center name
+            try {
+                const centerDoc = await getDoc(doc(db, 'centers', centerId));
+                if (centerDoc.exists()) {
+                    orderData.centerName = centerDoc.data().name;
+                }
+            } catch (error) {
+                console.error('Error getting center name:', error);
+            }
+
+            try {
+                await addDoc(collection(db, 'orders'), orderData);
+
+                showToast(`Pedido creado correctamente ${orderData.status === 'pending' ? '(pendiente de aprobación)' : '(aprobado automáticamente)'}`, 'success');
+                closeModal('addOrderModal');
+                loadOrders();
+
+                // Reset form
+                e.target.reset();
+                resetOrderItems();
+            } catch (error) {
+                console.error('Error creating order:', error);
+                showToast('Error al crear pedido', 'error');
+            }
+        }
+
+        function addOrderItem() {
+            const orderItems = document.getElementById('orderItems');
+            const newItem = document.createElement('div');
+            newItem.className = 'order-item';
+            newItem.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; align-items: end;';
+
+            newItem.innerHTML = `
+                <div style="flex: 1;">
+                    <label class="form-label text-xs">Producto</label>
+                    <input type="text" class="form-input order-product" placeholder="Nombre del producto" required>
+                </div>
+                <div style="width: 100px;">
+                    <label class="form-label text-xs">Cantidad</label>
+                    <input type="number" class="form-input order-quantity" placeholder="1" min="1" required>
+                </div>
+                <div style="width: 120px;">
+                    <label class="form-label text-xs">Urgencia</label>
+                    <select class="form-select order-urgency">
+                        <option value="normal">Normal</option>
+                        <option value="urgente">Urgente</option>
+                        <option value="critico">Crítico</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-danger btn-small" onclick="removeOrderItem(this)" style="height: 38px;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+
+            orderItems.appendChild(newItem);
+        }
+
+        function removeOrderItem(button) {
+            const orderItems = document.getElementById('orderItems');
+            if (orderItems.children.length > 1) {
+                button.closest('.order-item').remove();
+            } else {
+                showToast('Debe haber al menos un producto en el pedido', 'warning');
+            }
+        }
+
+        function resetOrderItems() {
+            const orderItems = document.getElementById('orderItems');
+            orderItems.innerHTML = `
+                <div class="order-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: end;">
+                    <div style="flex: 1;">
+                        <label class="form-label text-xs">Producto</label>
+                        <input type="text" class="form-input order-product" placeholder="Nombre del producto" required>
+                    </div>
+                    <div style="width: 100px;">
+                        <label class="form-label text-xs">Cantidad</label>
+                        <input type="number" class="form-input order-quantity" placeholder="1" min="1" required>
+                    </div>
+                    <div style="width: 120px;">
+                        <label class="form-label text-xs">Urgencia</label>
+                        <select class="form-select order-urgency">
+                            <option value="normal">Normal</option>
+                            <option value="urgente">Urgente</option>
+                            <option value="critico">Crítico</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-small" onclick="removeOrderItem(this)" style="height: 38px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        async function approveOrder(orderId) {
+            try {
+                await updateDoc(doc(db, 'orders', orderId), {
+                    status: 'approved',
+                    approvedAt: serverTimestamp(),
+                    approvedBy: currentUser.uid
+                });
+
+                showToast('Pedido aprobado correctamente', 'success');
+                loadOrders();
+            } catch (error) {
+                console.error('Error approving order:', error);
+                showToast('Error al aprobar pedido', 'error');
+            }
+        }
+
+        // Configuration Functions
+        async function loadConfiguration() {
+            if (userData.role !== 'LIFE_ADMIN') {
+                document.getElementById('configContent').innerHTML = 
+                    '<div class="text-center"><p>No tienes permisos para acceder a la configuración</p></div>';
+                return;
+            }
+
+            await loadGlobalConfig();
+            renderConfigurationUI();
+        }
+
+        async function loadGlobalConfig() {
+            try {
+                const configDoc = await getDoc(doc(db, 'config', 'global'));
+                if (configDoc.exists()) {
+                    globalConfig = { ...globalConfig, ...configDoc.data() };
+                }
+            } catch (error) {
+                console.error('Error loading global config:', error);
+            }
+        }
+
+        function renderConfigurationUI() {
+            renderCategoriesList();
+            renderDepartmentsList();
+        }
+
+        function renderCategoriesList() {
+            const categoriesList = document.getElementById('categoriesList');
+            categoriesList.innerHTML = globalConfig.categories.map((category, index) => `
+                <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+                    <input type="text" class="form-input" value="${category}" onchange="updateCategory(${index}, this.value)" style="flex: 1;">
+                    <button type="button" class="btn btn-danger btn-small" onclick="removeCategory(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderDepartmentsList() {
+            const departmentsList = document.getElementById('departmentsList');
+            departmentsList.innerHTML = globalConfig.departments.map((department, index) => `
+                <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+                    <input type="text" class="form-input" value="${department}" onchange="updateDepartment(${index}, this.value)" style="flex: 1;">
+                    <button type="button" class="btn btn-danger btn-small" onclick="removeDepartment(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addCategoryField() {
+            globalConfig.categories.push('nueva_categoria');
+            renderCategoriesList();
+        }
+
+        function addDepartmentField() {
+            globalConfig.departments.push('nuevo_departamento');
+            renderDepartmentsList();
+        }
+
+        function updateCategory(index, value) {
+            globalConfig.categories[index] = value.toLowerCase().replace(/\s+/g, '_');
+        }
+
+        function updateDepartment(index, value) {
+            globalConfig.departments[index] = value.toLowerCase().replace(/\s+/g, '_');
+        }
+
+        function removeCategory(index) {
+            globalConfig.categories.splice(index, 1);
+            renderCategoriesList();
+        }
+
+        function removeDepartment(index) {
+            globalConfig.departments.splice(index, 1);
+            renderDepartmentsList();
+        }
+
+        async function handleGlobalConfig(e) {
+            e.preventDefault();
+
+            try {
+                await setDoc(doc(db, 'config', 'global'), globalConfig);
+                showToast('Configuración guardada correctamente', 'success');
+            } catch (error) {
+                console.error('Error saving global config:', error);
+                showToast('Error al guardar configuración', 'error');
+            }
+        }
+
+        // Utility Functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Make functions global for onclick handlers
+        window.closeModal = closeModal;
+        window.removeOrderItem = removeOrderItem;
+        window.addOrderItem = addOrderItem;
+        window.adjustStock = adjustStock;
+        window.editStock = editStock;
+        window.adjustInventoryStock = adjustInventoryStock;
+        window.toggleCenterStatus = toggleCenterStatus;
+        window.approveOrder = approveOrder;
+        window.editCenter = editCenter;
+        window.viewCenterDetails = viewCenterDetails;
+        window.editUser = editUser;
+        window.deleteUser = deleteUser;
+        window.viewUser = viewUser;
+        window.viewOrder = viewOrder;
+        window.editOrder = editOrder;
+        window.deleteInventoryItem = deleteInventoryItem;
+        window.updateCategory = updateCategory;
+        window.updateDepartment = updateDepartment;
+        window.removeCategory = removeCategory;
+        window.removeDepartment = removeDepartment;
+
+        function showLoading(loadingId) {
+            const loadingElement = document.getElementById(loadingId);
+            if (loadingElement) {
+                loadingElement.classList.add('show');
+            }
+        }
+
+        function hideLoading(loadingId) {
+            const loadingElement = document.getElementById(loadingId);
+            if (loadingElement) {
+                loadingElement.classList.remove('show');
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Sin fecha';
+
+            let date;
+            if (timestamp.toDate) {
+                date = timestamp.toDate();
+            } else {
+                date = new Date(timestamp);
+            }
+
+            return date.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('es-ES', {
+                style: 'currency',
+                currency: 'EUR'
+            }).format(amount);
+        }
+
+        function formatDepartmentName(department) {
+            const departmentNames = {
+                'enfermeria': 'Enfermería',
+                'quirofano': 'Quirófano',
+                'farmacia': 'Farmacia',
+                'cocina': 'Cocina',
+                'limpieza': 'Limpieza',
+                'mantenimiento': 'Mantenimiento',
+                'lavanderia': 'Lavandería',
+                'recepcion': 'Recepción'
+            };
+            return departmentNames[department] || department.charAt(0).toUpperCase() + department.slice(1);
+        }
+
+        function formatCategoryName(category) {
+            const categoryNames = {
+                'material_sanitario': 'Material Sanitario',
+                'alimentario': 'Alimentario',
+                'limpieza': 'Limpieza',
+                'farmacia': 'Farmacia',
+                'amenities': 'Amenities',
+                'textil': 'Textil',
+                'mantenimiento': 'Mantenimiento'
+            };
+            return categoryNames[category] || category.charAt(0).toUpperCase() + category.slice(1).replace('_', ' ');
+        }
+
+        function getStatusDisplayName(status) {
+            const statusNames = {
+                'pending': 'Pendiente',
+                'approved': 'Aprobado',
+                'ordered': 'Pedido',
+                'delivered': 'Entregado',
+                'cancelled': 'Cancelado'
+            };
+            return statusNames[status] || status;
+        }
+
+        // Center Management Functions
+        async function editCenter(centerId) {
+            try {
+                const centerDoc = await getDoc(doc(db, 'centers', centerId));
+                if (centerDoc.exists()) {
+                    const centerData = centerDoc.data();
+                    
+                    // Populate edit form with current data
+                    document.getElementById('centerName').value = centerData.name;
+                    document.getElementById('centerType').value = centerData.type;
+                    document.getElementById('centerAddress').value = centerData.address;
+                    document.getElementById('centerPhone').value = centerData.phone || '';
+                    document.getElementById('centerEmail').value = centerData.email || '';
+                    document.getElementById('centerNotes').value = centerData.notes || '';
+                    
+                    // Set departments
+                    handleCenterTypeChange();
+                    setTimeout(() => {
+                        centerData.departments?.forEach(dept => {
+                            const checkbox = document.getElementById(`dept_${dept}`);
+                            if (checkbox) checkbox.checked = true;
+                        });
+                    }, 100);
+                    
+                    // Change form handler to update instead of create
+                    const form = document.getElementById('addCenterForm');
+                    form.onsubmit = async (e) => {
+                        e.preventDefault();
+                        await handleUpdateCenter(e, centerId);
+                    };
+                    
+                    document.querySelector('#addCenterModal .modal-title').textContent = 'Editar Centro';
+                    document.querySelector('#addCenterModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Actualizar Centro';
+                    
+                    openModal('addCenterModal');
+                }
+            } catch (error) {
+                console.error('Error loading center for edit:', error);
+                showToast('Error al cargar centro', 'error');
+            }
+        }
+
+        async function handleUpdateCenter(e, centerId) {
+            e.preventDefault();
+            
+            const departments = Array.from(document.querySelectorAll('#centerDepartments input:checked'))
+                .map(input => input.value);
+
+            if (departments.length === 0) {
+                showToast('Selecciona al menos un departamento', 'error');
+                return;
+            }
+
+            const centerData = {
+                name: document.getElementById('centerName').value,
+                type: document.getElementById('centerType').value,
+                address: document.getElementById('centerAddress').value,
+                phone: document.getElementById('centerPhone').value,
+                email: document.getElementById('centerEmail').value,
+                departments: departments,
+                adminId: document.getElementById('centerAdmin').value,
+                notes: document.getElementById('centerNotes').value,
+                updatedAt: serverTimestamp(),
+                updatedBy: currentUser.uid
+            };
+
+            try {
+                await updateDoc(doc(db, 'centers', centerId), centerData);
+                showToast('Centro actualizado correctamente', 'success');
+                closeModal('addCenterModal');
+                resetCenterForm();
+                loadCenters();
+            } catch (error) {
+                console.error('Error updating center:', error);
+                showToast('Error al actualizar centro', 'error');
+            }
+        }
+
+        function resetCenterForm() {
+            const form = document.getElementById('addCenterForm');
+            form.onsubmit = handleAddCenter;
+            document.querySelector('#addCenterModal .modal-title').textContent = 'Nuevo Centro';
+            document.querySelector('#addCenterModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Crear Centro';
+        }
+
+        async function viewCenterDetails(centerId) {
+            try {
+                const centerDoc = await getDoc(doc(db, 'centers', centerId));
+                if (centerDoc.exists()) {
+                    const centerData = centerDoc.data();
+                    
+                    // Get center statistics
+                    const usersQuery = query(collection(db, 'users'), where('centerIds', 'array-contains', centerId));
+                    const usersSnapshot = await getDocs(usersQuery);
+                    
+                    const inventoryQuery = query(collection(db, 'inventory'), where('centerId', '==', centerId));
+                    const inventorySnapshot = await getDocs(inventoryQuery);
+                    
+                    const ordersQuery = query(collection(db, 'orders'), where('centerId', '==', centerId));
+                    const ordersSnapshot = await getDocs(ordersQuery);
+                    
+                    const modalContent = `
+                        <div class="modal" id="centerDetailsModal" style="display: flex;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Detalles del Centro</h3>
+                                    <button class="modal-close" onclick="closeModal('centerDetailsModal')">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="grid-2">
+                                        <div>
+                                            <h4 class="font-medium mb-2">${centerData.name}</h4>
+                                            <p class="text-sm text-secondary mb-2">${centerData.type}</p>
+                                            <p class="mb-2"><i class="fas fa-map-marker-alt"></i> ${centerData.address}</p>
+                                            ${centerData.phone ? `<p class="mb-2"><i class="fas fa-phone"></i> ${centerData.phone}</p>` : ''}
+                                            ${centerData.email ? `<p class="mb-2"><i class="fas fa-envelope"></i> ${centerData.email}</p>` : ''}
+                                            <p class="mb-2"><i class="fas fa-building"></i> ${centerData.departments?.map(d => formatDepartmentName(d)).join(', ')}</p>
+                                            ${centerData.notes ? `<p class="text-sm text-secondary mt-4">${centerData.notes}</p>` : ''}
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium mb-2">Estadísticas</h5>
+                                            <div class="stats-grid" style="grid-template-columns: 1fr;">
+                                                <div class="stat-card">
+                                                    <span class="stat-number">${usersSnapshot.size}</span>
+                                                    <div class="stat-label">Usuarios</div>
+                                                </div>
+                                                <div class="stat-card">
+                                                    <span class="stat-number">${inventorySnapshot.size}</span>
+                                                    <div class="stat-label">Productos en Inventario</div>
+                                                </div>
+                                                <div class="stat-card">
+                                                    <span class="stat-number">${ordersSnapshot.size}</span>
+                                                    <div class="stat-label">Pedidos Total</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline" onclick="closeModal('centerDetailsModal')">Cerrar</button>
+                                    ${userData.role === 'LIFE_ADMIN' ? `<button type="button" class="btn btn-primary" onclick="closeModal('centerDetailsModal'); editCenter('${centerId}')">Editar Centro</button>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Remove any existing modal
+                    const existingModal = document.getElementById('centerDetailsModal');
+                    if (existingModal) existingModal.remove();
+                    
+                    // Add modal to body
+                    document.body.insertAdjacentHTML('beforeend', modalContent);
+                }
+            } catch (error) {
+                console.error('Error loading center details:', error);
+                showToast('Error al cargar detalles del centro', 'error');
+            }
+        }
+
+        // User Management Functions
+        async function editUser(userId) {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', userId));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    
+                    // Populate edit form
+                    document.getElementById('userName').value = userData.name || '';
+                    document.getElementById('userEmail').value = userData.email;
+                    document.getElementById('userRole').value = userData.role;
+                    document.getElementById('userDepartment').value = userData.department || '';
+                    
+                    // Set assigned centers
+                    await populateUserCenters();
+                    setTimeout(() => {
+                        userData.centerIds?.forEach(centerId => {
+                            const checkbox = document.getElementById(`center_${centerId}`);
+                            if (checkbox) checkbox.checked = true;
+                        });
+                    }, 100);
+                    
+                    // Hide password field for editing
+                    const passwordGroup = document.querySelector('#userPassword').closest('.form-group');
+                    passwordGroup.style.display = 'none';
+                    
+                    // Change form handler
+                    const form = document.getElementById('addUserForm');
+                    form.onsubmit = async (e) => {
+                        e.preventDefault();
+                        await handleUpdateUser(e, userId);
+                    };
+                    
+                    document.querySelector('#addUserModal .modal-title').textContent = 'Editar Usuario';
+                    document.querySelector('#addUserModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Actualizar Usuario';
+                    
+                    openModal('addUserModal');
+                }
+            } catch (error) {
+                console.error('Error loading user for edit:', error);
+                showToast('Error al cargar usuario', 'error');
+            }
+        }
+
+        async function handleUpdateUser(e, userId) {
+            e.preventDefault();
+            
+            const selectedCenters = Array.from(document.querySelectorAll('#userCenters input:checked'))
+                .map(input => input.value);
+
+            const updatedUserData = {
+                name: document.getElementById('userName').value,
+                email: document.getElementById('userEmail').value,
+                role: document.getElementById('userRole').value,
+                centerIds: selectedCenters,
+                department: document.getElementById('userDepartment').value,
+                updatedAt: serverTimestamp(),
+                updatedBy: currentUser.uid
+            };
+
+            try {
+                await updateDoc(doc(db, 'users', userId), updatedUserData);
+                showToast('Usuario actualizado correctamente', 'success');
+                closeModal('addUserModal');
+                resetUserForm();
+                loadUsers();
+            } catch (error) {
+                console.error('Error updating user:', error);
+                showToast('Error al actualizar usuario', 'error');
+            }
+        }
+
+        function resetUserForm() {
+            const form = document.getElementById('addUserForm');
+            form.onsubmit = handleAddUser;
+            const passwordGroup = document.querySelector('#userPassword').closest('.form-group');
+            passwordGroup.style.display = 'block';
+            document.querySelector('#addUserModal .modal-title').textContent = 'Nuevo Usuario';
+            document.querySelector('#addUserModal .btn-primary').innerHTML = '<i class="fas fa-user-plus"></i> Crear Usuario';
+        }
+
+        async function deleteUser(userId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar este usuario? Esta acción no se puede deshacer.')) {
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, 'users', userId));
+                showToast('Usuario eliminado correctamente', 'success');
+                loadUsers();
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                showToast('Error al eliminar usuario', 'error');
+            }
+        }
+
+        async function viewUser(userId) {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', userId));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    
+                    // Get user's centers
+                    let userCenters = [];
+                    if (userData.centerIds?.length) {
+                        const centersQuery = query(collection(db, 'centers'), where('__name__', 'in', userData.centerIds));
+                        const centersSnapshot = await getDocs(centersQuery);
+                        userCenters = centersSnapshot.docs.map(doc => doc.data().name);
+                    }
+                    
+                    const modalContent = `
+                        <div class="modal" id="userDetailsModal" style="display: flex;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Detalles del Usuario</h3>
+                                    <button class="modal-close" onclick="closeModal('userDetailsModal')">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="grid-2">
+                                        <div>
+                                            <h4 class="font-medium mb-2">${userData.name || 'Sin nombre'}</h4>
+                                            <p class="text-sm text-secondary mb-2">${userData.email}</p>
+                                            <p class="mb-2"><strong>Rol:</strong> ${getRoleDisplayName(userData.role)}</p>
+                                            ${userData.department ? `<p class="mb-2"><strong>Departamento:</strong> ${userData.department}</p>` : ''}
+                                            <p class="mb-2"><strong>Estado:</strong> <span class="badge badge-active">Activo</span></p>
+                                            <p class="text-sm text-secondary">Creado: ${formatDate(userData.createdAt)}</p>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium mb-2">Centros Asignados</h5>
+                                            ${userCenters.length > 0 ? 
+                                                userCenters.map(center => `<span class="badge badge-approved" style="margin: 2px;">${center}</span>`).join(' ') :
+                                                '<p class="text-secondary">Sin centros asignados</p>'
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline" onclick="closeModal('userDetailsModal')">Cerrar</button>
+                                    ${canManageUser(userData) ? `<button type="button" class="btn btn-primary" onclick="closeModal('userDetailsModal'); editUser('${userId}')">Editar Usuario</button>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Remove any existing modal
+                    const existingModal = document.getElementById('userDetailsModal');
+                    if (existingModal) existingModal.remove();
+                    
+                    // Add modal to body
+                    document.body.insertAdjacentHTML('beforeend', modalContent);
+                }
+            } catch (error) {
+                console.error('Error loading user details:', error);
+                showToast('Error al cargar detalles del usuario', 'error');
+            }
+        }
+
+        // Order Management Functions
+        async function viewOrder(orderId) {
+            try {
+                const orderDoc = await getDoc(doc(db, 'orders', orderId));
+                if (orderDoc.exists()) {
+                    const orderData = orderDoc.data();
+                    
+                    const modalContent = `
+                        <div class="modal" id="orderDetailsModal" style="display: flex;">
+                            <div class="modal-content" style="max-width: 800px;">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Detalles del Pedido #${orderId.substring(0, 8)}</h3>
+                                    <button class="modal-close" onclick="closeModal('orderDetailsModal')">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="grid-2" style="margin-bottom: 20px;">
+                                        <div>
+                                            <h5 class="font-medium mb-2">Información General</h5>
+                                            <p><strong>Centro:</strong> ${orderData.centerName || 'Sin asignar'}</p>
+                                            <p><strong>Estado:</strong> <span class="badge badge-${orderData.status}">${getStatusDisplayName(orderData.status)}</span></p>
+                                            <p><strong>Total:</strong> ${formatCurrency(orderData.totalAmount || 0)}</p>
+                                            <p><strong>Creado por:</strong> ${orderData.createdByName || 'Sistema'}</p>
+                                            <p><strong>Fecha:</strong> ${formatDate(orderData.createdAt)}</p>
+                                        </div>
+                                        <div>
+                                            ${orderData.notes ? `
+                                                <h5 class="font-medium mb-2">Observaciones</h5>
+                                                <p class="text-sm">${orderData.notes}</p>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                    
+                                    <h5 class="font-medium mb-2">Productos del Pedido</h5>
+                                    <div class="table-container">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Urgencia</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${orderData.items?.map(item => `
+                                                    <tr>
+                                                        <td>${item.productName}</td>
+                                                        <td>${item.quantity}</td>
+                                                        <td><span class="badge badge-${item.urgency === 'critico' ? 'inactive' : item.urgency === 'urgente' ? 'pending' : 'active'}">${item.urgency}</span></td>
+                                                    </tr>
+                                                `).join('') || '<tr><td colspan="3">Sin productos</td></tr>'}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline" onclick="closeModal('orderDetailsModal')">Cerrar</button>
+                                    ${canManageOrder(orderData) && orderData.status === 'pending' ? `
+                                        <button type="button" class="btn btn-success" onclick="closeModal('orderDetailsModal'); approveOrder('${orderId}')">
+                                            <i class="fas fa-check"></i> Aprobar Pedido
+                                        </button>
+                                    ` : ''}
+                                    ${canManageOrder(orderData) ? `
+                                        <button type="button" class="btn btn-primary" onclick="closeModal('orderDetailsModal'); editOrder('${orderId}')">
+                                            <i class="fas fa-edit"></i> Editar Pedido
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Remove any existing modal
+                    const existingModal = document.getElementById('orderDetailsModal');
+                    if (existingModal) existingModal.remove();
+                    
+                    // Add modal to body
+                    document.body.insertAdjacentHTML('beforeend', modalContent);
+                }
+            } catch (error) {
+                console.error('Error loading order details:', error);
+                showToast('Error al cargar detalles del pedido', 'error');
+            }
+        }
+
+        async function editOrder(orderId) {
+            try {
+                const orderDoc = await getDoc(doc(db, 'orders', orderId));
+                if (orderDoc.exists()) {
+                    const orderData = orderDoc.data();
+                    
+                    // Populate order center
+                    await populateOrderCenters();
+                    document.getElementById('orderCenter').value = orderData.centerId;
+                    document.getElementById('orderNotes').value = orderData.notes || '';
+                    
+                    // Populate order items
+                    const orderItemsContainer = document.getElementById('orderItems');
+                    orderItemsContainer.innerHTML = '';
+                    
+                    orderData.items?.forEach((item, index) => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'order-item';
+                        itemDiv.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; align-items: end;';
+                        itemDiv.innerHTML = `
+                            <div style="flex: 1;">
+                                <label class="form-label text-xs">Producto</label>
+                                <input type="text" class="form-input order-product" placeholder="Nombre del producto" value="${item.productName}" required>
+                            </div>
+                            <div style="width: 100px;">
+                                <label class="form-label text-xs">Cantidad</label>
+                                <input type="number" class="form-input order-quantity" placeholder="1" min="1" value="${item.quantity}" required>
+                            </div>
+                            <div style="width: 120px;">
+                                <label class="form-label text-xs">Urgencia</label>
+                                <select class="form-select order-urgency">
+                                    <option value="normal" ${item.urgency === 'normal' ? 'selected' : ''}>Normal</option>
+                                    <option value="urgente" ${item.urgency === 'urgente' ? 'selected' : ''}>Urgente</option>
+                                    <option value="critico" ${item.urgency === 'critico' ? 'selected' : ''}>Crítico</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-small" onclick="removeOrderItem(this)" style="height: 38px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `;
+                        orderItemsContainer.appendChild(itemDiv);
+                    });
+                    
+                    // Change form handler
+                    const form = document.getElementById('addOrderForm');
+                    form.onsubmit = async (e) => {
+                        e.preventDefault();
+                        await handleUpdateOrder(e, orderId);
+                    };
+                    
+                    document.querySelector('#addOrderModal .modal-title').textContent = 'Editar Pedido';
+                    document.querySelector('#addOrderModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Actualizar Pedido';
+                    
+                    openModal('addOrderModal');
+                }
+            } catch (error) {
+                console.error('Error loading order for edit:', error);
+                showToast('Error al cargar pedido', 'error');
+            }
+        }
+
+        async function handleUpdateOrder(e, orderId) {
+            e.preventDefault();
+            
+            const centerId = document.getElementById('orderCenter').value;
+            const orderItems = [];
+
+            // Collect order items
+            document.querySelectorAll('.order-item').forEach(item => {
+                const product = item.querySelector('.order-product').value;
+                const quantity = parseInt(item.querySelector('.order-quantity').value);
+                const urgency = item.querySelector('.order-urgency').value;
+
+                if (product && quantity > 0) {
+                    orderItems.push({
+                        productName: product,
+                        quantity: quantity,
+                        urgency: urgency
+                    });
+                }
+            });
+
+            if (orderItems.length === 0) {
+                showToast('Añade al menos un producto al pedido', 'error');
+                return;
+            }
+
+            const totalAmount = orderItems.reduce((sum, item) => sum + (item.quantity * 10), 0);
+
+            const updateData = {
+                centerId: centerId,
+                items: orderItems,
+                totalAmount: totalAmount,
+                notes: document.getElementById('orderNotes').value,
+                updatedAt: serverTimestamp(),
+                updatedBy: currentUser.uid
+            };
+
+            // Get center name
+            try {
+                const centerDoc = await getDoc(doc(db, 'centers', centerId));
+                if (centerDoc.exists()) {
+                    updateData.centerName = centerDoc.data().name;
+                }
+            } catch (error) {
+                console.error('Error getting center name:', error);
+            }
+
+            try {
+                await updateDoc(doc(db, 'orders', orderId), updateData);
+                showToast('Pedido actualizado correctamente', 'success');
+                closeModal('addOrderModal');
+                resetOrderForm();
+                loadOrders();
+            } catch (error) {
+                console.error('Error updating order:', error);
+                showToast('Error al actualizar pedido', 'error');
+            }
+        }
+
+        function resetOrderForm() {
+            const form = document.getElementById('addOrderForm');
+            form.onsubmit = handleAddOrder;
+            document.querySelector('#addOrderModal .modal-title').textContent = 'Nuevo Pedido';
+            document.querySelector('#addOrderModal .btn-primary').innerHTML = '<i class="fas fa-shopping-cart"></i> Crear Pedido';
+            resetOrderItems();
+        }
+
+        // Inventory Management Functions
+        async function deleteInventoryItem(itemId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar este producto del inventario? Esta acción no se puede deshacer.')) {
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, 'inventory', itemId));
+                showToast('Producto eliminado del inventario correctamente', 'success');
+                loadInventory();
+            } catch (error) {
+                console.error('Error deleting inventory item:', error);
+                showToast('Error al eliminar producto del inventario', 'error');
+            }
+        }
+
+        // Event Handlers
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !menuToggle.contains(e.target) &&
+                sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+            }
+        });
+
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+
+    </script>
+</body>
+</html>
