@@ -816,6 +816,333 @@
             }
         }
 
+        /* Calendar Styles */
+        .calendar-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .calendar-day-header {
+            background: var(--background);
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .calendar-day {
+            background: var(--card-bg);
+            min-height: 100px;
+            padding: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .calendar-day:hover {
+            background: var(--background);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            background: rgba(37, 99, 235, 0.1);
+            border: 2px solid var(--primary);
+        }
+
+        .calendar-day-number {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .calendar-event {
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            font-size: 11px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .calendar-event.event-urgent {
+            background: var(--error);
+        }
+
+        .calendar-event.event-warning {
+            background: var(--warning);
+        }
+
+        /* Time Log Styles */
+        .time-entry {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .time-entry:hover {
+            background: var(--background);
+        }
+
+        .time-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .timer-display {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .timer-running {
+            color: var(--success);
+        }
+
+        .timer-paused {
+            color: var(--warning);
+        }
+
+        /* Time Log Summary */
+        .time-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .time-summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 16px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .time-summary-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .time-summary-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Accounting Tab Styles */
+        .accounting-tab {
+            border-color: var(--border) !important;
+            transition: all 0.2s;
+        }
+
+        .accounting-tab.active {
+            background: var(--primary) !important;
+            color: white !important;
+            border-color: var(--primary) !important;
+        }
+
+        .accounting-tab:not(.active):hover {
+            background: var(--background);
+            border-color: var(--primary);
+        }
+
+        .accounting-tab-content {
+            display: none;
+        }
+
+        .accounting-tab-content.active {
+            display: block;
+        }
+
+        /* Financial Cards */
+        .financial-summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .financial-summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .financial-summary-center {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .financial-summary-period {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .financial-summary-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .financial-metric {
+            text-align: center;
+            padding: 8px;
+            background: var(--background);
+            border-radius: 4px;
+        }
+
+        .financial-metric-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .financial-metric-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Budget Cards */
+        .budget-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .budget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .budget-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .budget-period {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .budget-progress {
+            margin-bottom: 12px;
+        }
+
+        .budget-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .budget-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .budget-progress-fill.warning {
+            background: var(--warning);
+        }
+
+        .budget-progress-fill.danger {
+            background: var(--error);
+        }
+
+        .budget-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .budget-spent {
+            color: var(--text-secondary);
+        }
+
+        .budget-remaining {
+            color: var(--success);
+            text-align: right;
+        }
+
+        /* Transaction Table Enhancements */
+        .transaction-type-income {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .transaction-type-expense {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+        .transaction-amount-positive {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .transaction-amount-negative {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+        /* Budget Category Items */
+        .budget-category-item {
+            background: var(--background);
+            transition: all 0.2s;
+        }
+
+        .budget-category-item:hover {
+            background: var(--border);
+        }
+
         /* Utilities */
         .text-center { text-align: center; }
         .text-right { text-align: right; }
@@ -849,15 +1176,20 @@
                 <div class="login-header">
                     <h1 class="login-title">LIFE ERP</h1>
                     <p class="login-subtitle">Logistics Integrated For Excellence</p>
+                    <div style="background: #e3f2fd; padding: 12px; border-radius: 4px; margin-top: 16px; font-size: 14px; color: #1565c0;">
+                        <strong>Credenciales por defecto:</strong><br>
+                        Email: admin@life.com<br>
+                        Contraseña: admin123
+                    </div>
                 </div>
                 <form id="loginForm">
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" id="loginEmail" class="form-input" required placeholder="usuario@empresa.com">
+                        <input type="email" id="loginEmail" class="form-input" required placeholder="admin@life.com" value="admin@life.com">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Contraseña</label>
-                        <input type="password" id="loginPassword" class="form-input" required placeholder="••••••••">
+                        <input type="password" id="loginPassword" class="form-input" required placeholder="admin123" value="admin123">
                     </div>
                     <button type="submit" class="btn btn-primary btn-large w-full">
                         <i class="fas fa-sign-in-alt"></i>
@@ -1082,6 +1414,390 @@
                                 <div id="ordersLoading" class="loading">
                                     <div class="spinner"></div>
                                     <p>Cargando pedidos...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Screen -->
+                    <div id="calendarContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Calendario</h2>
+                                <button class="btn btn-primary" id="addEventBtn">
+                                    <i class="fas fa-plus"></i>
+                                    Nuevo Evento
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div class="calendar-container">
+                                    <div class="calendar-header">
+                                        <h3 id="calendarTitle" class="font-medium">Enero 2024</h3>
+                                        <div class="calendar-nav">
+                                            <button class="btn btn-outline btn-small" id="prevMonth">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </button>
+                                            <button class="btn btn-outline btn-small" id="todayBtn">Hoy</button>
+                                            <button class="btn btn-outline btn-small" id="nextMonth">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="calendar-grid" id="calendarGrid">
+                                        <!-- Calendar will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Log Screen -->
+                    <div id="timelogContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Registro de Horas</h2>
+                                <button class="btn btn-primary" id="addTimeEntryBtn">
+                                    <i class="fas fa-plus"></i>
+                                    Nueva Entrada
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <!-- Time Summary -->
+                                <div class="time-summary" id="timeSummary">
+                                    <div class="time-summary-card">
+                                        <span class="time-summary-value" id="todayHours">0:00</span>
+                                        <div class="time-summary-label">Hoy</div>
+                                    </div>
+                                    <div class="time-summary-card">
+                                        <span class="time-summary-value" id="weekHours">0:00</span>
+                                        <div class="time-summary-label">Esta Semana</div>
+                                    </div>
+                                    <div class="time-summary-card">
+                                        <span class="time-summary-value" id="monthHours">0:00</span>
+                                        <div class="time-summary-label">Este Mes</div>
+                                    </div>
+                                </div>
+
+                                <!-- Active Timer -->
+                                <div class="card" style="margin-bottom: 20px;">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Timer Activo</h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-4">
+                                                <div class="timer-display" id="activeTimer">00:00:00</div>
+                                                <div>
+                                                    <input type="text" id="activeTask" class="form-input" placeholder="¿En qué estás trabajando?" style="width: 300px;">
+                                                    <div class="text-sm text-secondary" id="activeTaskInfo">Sin tarea activa</div>
+                                                </div>
+                                            </div>
+                                            <div class="time-controls">
+                                                <button class="btn btn-success" id="startTimer">
+                                                    <i class="fas fa-play"></i>
+                                                    Iniciar
+                                                </button>
+                                                <button class="btn btn-warning hidden" id="pauseTimer">
+                                                    <i class="fas fa-pause"></i>
+                                                    Pausar
+                                                </button>
+                                                <button class="btn btn-danger hidden" id="stopTimer">
+                                                    <i class="fas fa-stop"></i>
+                                                    Finalizar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Time Entries List -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Entradas de Tiempo</h3>
+                                        <div class="flex gap-2">
+                                            <input type="date" id="timelogDateFilter" class="form-input" style="width: auto;">
+                                            <select id="timelogTaskFilter" class="form-select" style="width: auto;">
+                                                <option value="">Todas las tareas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div id="timeEntriesList">
+                                            <p class="text-center text-secondary">No hay entradas de tiempo registradas</p>
+                                        </div>
+                                        <div id="timelogLoading" class="loading">
+                                            <div class="spinner"></div>
+                                            <p>Cargando entradas...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Suppliers Screen -->
+                    <div id="suppliersContent" class="screen-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Gestión de Proveedores</h2>
+                                <div class="flex gap-2">
+                                    <select id="supplierCategoryFilter" class="form-select" style="width: auto;">
+                                        <option value="">Todas las categorías</option>
+                                    </select>
+                                    <button class="btn btn-primary" id="addSupplierBtn">
+                                        <i class="fas fa-plus"></i>
+                                        Nuevo Proveedor
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="table-container">
+                                    <table class="table" id="suppliersTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Proveedor</th>
+                                                <th>Categorías</th>
+                                                <th>Contacto</th>
+                                                <th>Calificación</th>
+                                                <th>Tiempo Entrega</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="suppliersTableBody">
+                                            <!-- Suppliers will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="suppliersLoading" class="loading">
+                                    <div class="spinner"></div>
+                                    <p>Cargando proveedores...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Purchase Orders Section -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Órdenes de Compra</h2>
+                                <div class="flex gap-2">
+                                    <select id="purchaseOrderStatusFilter" class="form-select" style="width: auto;">
+                                        <option value="">Todos los estados</option>
+                                        <option value="draft">Borrador</option>
+                                        <option value="sent">Enviada</option>
+                                        <option value="confirmed">Confirmada</option>
+                                        <option value="in_transit">En Tránsito</option>
+                                        <option value="delivered">Entregada</option>
+                                        <option value="cancelled">Cancelada</option>
+                                    </select>
+                                    <button class="btn btn-primary" id="createPurchaseOrderBtn">
+                                        <i class="fas fa-plus"></i>
+                                        Nueva Orden de Compra
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="table-container">
+                                    <table class="table" id="purchaseOrdersTable">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Orden</th>
+                                                <th>Proveedor</th>
+                                                <th>Centro</th>
+                                                <th>Fecha</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="purchaseOrdersTableBody">
+                                            <!-- Purchase orders will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="purchaseOrdersLoading" class="loading">
+                                    <div class="spinner"></div>
+                                    <p>Cargando órdenes de compra...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accounting Screen -->
+                    <div id="accountingContent" class="screen-content">
+                        <!-- Financial Overview -->
+                        <div class="stats-grid" style="margin-bottom: 24px;">
+                            <div class="stat-card">
+                                <span class="stat-number" id="totalIncome">€0</span>
+                                <div class="stat-label">Ingresos del Mes</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number" id="totalExpenses">€0</span>
+                                <div class="stat-label">Gastos del Mes</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number" id="netProfit">€0</span>
+                                <div class="stat-label">Beneficio Neto</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number" id="pendingPayments">€0</span>
+                                <div class="stat-label">Pagos Pendientes</div>
+                            </div>
+                        </div>
+
+                        <!-- Accounting Tabs -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Contabilidad</h2>
+                                <div class="flex gap-2">
+                                    <button class="btn btn-outline accounting-tab active" onclick="showAccountingTab('overview')">
+                                        <i class="fas fa-chart-pie"></i> Resumen
+                                    </button>
+                                    <button class="btn btn-outline accounting-tab" onclick="showAccountingTab('transactions')">
+                                        <i class="fas fa-exchange-alt"></i> Transacciones
+                                    </button>
+                                    <button class="btn btn-outline accounting-tab" onclick="showAccountingTab('reports')">
+                                        <i class="fas fa-chart-line"></i> Reportes
+                                    </button>
+                                    <button class="btn btn-outline accounting-tab" onclick="showAccountingTab('budgets')">
+                                        <i class="fas fa-calculator"></i> Presupuestos
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <!-- Overview Tab -->
+                                <div id="accountingOverview" class="accounting-tab-content active">
+                                    <div class="grid-2">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Flujo de Caja</h3>
+                                            </div>
+                                            <div class="card-content">
+                                                <div id="cashFlowChart" class="text-center text-secondary">
+                                                    <i class="fas fa-chart-line" style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
+                                                    <p>Gráfico de flujo de caja</p>
+                                                    <small>Próximamente: Integración con Chart.js</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Resumen por Centro</h3>
+                                            </div>
+                                            <div class="card-content">
+                                                <div id="centerFinancialSummary">
+                                                    <!-- Financial summary by center will be populated here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Transactions Tab -->
+                                <div id="accountingTransactions" class="accounting-tab-content">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <div class="flex gap-2">
+                                            <select id="transactionTypeFilter" class="form-select" style="width: auto;">
+                                                <option value="">Todos los tipos</option>
+                                                <option value="income">Ingresos</option>
+                                                <option value="expense">Gastos</option>
+                                                <option value="purchase_order">Orden de Compra</option>
+                                            </select>
+                                            <input type="month" id="transactionMonthFilter" class="form-input" style="width: auto;">
+                                        </div>
+                                        <button class="btn btn-primary" id="addTransactionBtn">
+                                            <i class="fas fa-plus"></i> Nueva Transacción
+                                        </button>
+                                    </div>
+
+                                    <div class="table-container">
+                                        <table class="table" id="transactionsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Tipo</th>
+                                                    <th>Descripción</th>
+                                                    <th>Centro</th>
+                                                    <th>Categoría</th>
+                                                    <th>Monto</th>
+                                                    <th>Estado</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="transactionsTableBody">
+                                                <!-- Transactions will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="transactionsLoading" class="loading">
+                                        <div class="spinner"></div>
+                                        <p>Cargando transacciones...</p>
+                                    </div>
+                                </div>
+
+                                <!-- Reports Tab -->
+                                <div id="accountingReports" class="accounting-tab-content">
+                                    <div class="grid-2">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Generar Reportes</h3>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="form-group">
+                                                    <label class="form-label">Tipo de Reporte</label>
+                                                    <select id="reportType" class="form-select">
+                                                        <option value="profit_loss">Estado de Resultados</option>
+                                                        <option value="balance_sheet">Balance de Situación</option>
+                                                        <option value="cash_flow">Flujo de Caja</option>
+                                                        <option value="center_comparison">Comparación por Centro</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Fecha Inicio</label>
+                                                        <input type="date" id="reportStartDate" class="form-input">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label">Fecha Fin</label>
+                                                        <input type="date" id="reportEndDate" class="form-input">
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary w-full" onclick="generateReport()">
+                                                    <i class="fas fa-file-pdf"></i> Generar Reporte
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Reportes Recientes</h3>
+                                            </div>
+                                            <div class="card-content">
+                                                <div id="recentReports">
+                                                    <p class="text-center text-secondary">No hay reportes generados</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Budgets Tab -->
+                                <div id="accountingBudgets" class="accounting-tab-content">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h3 class="font-medium">Presupuestos por Centro</h3>
+                                        <button class="btn btn-primary" id="addBudgetBtn">
+                                            <i class="fas fa-plus"></i> Nuevo Presupuesto
+                                        </button>
+                                    </div>
+
+                                    <div class="grid-2">
+                                        <div id="budgetsGrid">
+                                            <!-- Budgets will be populated here -->
+                                        </div>
+                                    </div>
+                                    <div id="budgetsLoading" class="loading">
+                                        <div class="spinner"></div>
+                                        <p>Cargando presupuestos...</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1337,7 +2053,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group" id="inventoryDepartmentOnly" style="display: none;">
                         <label class="form-label">Departamento *</label>
                         <select id="inventoryDepartmentAlt" class="form-select" required>
@@ -1525,6 +2241,596 @@
         </div>
     </div>
 
+    <!-- Add Event Modal -->
+    <div id="addEventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Evento</h3>
+                <button class="modal-close" onclick="closeModal('addEventModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addEventForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Título del Evento *</label>
+                            <input type="text" id="eventTitle" class="form-input" required placeholder="Reunión con equipo">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Evento</label>
+                            <select id="eventType" class="form-select">
+                                <option value="meeting">Reunión</option>
+                                <option value="deadline">Fecha límite</option>
+                                <option value="maintenance">Mantenimiento</option>
+                                <option value="training">Capacitación</option>
+                                <option value="delivery">Entrega</option>
+                                <option value="other">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Fecha *</label>
+                            <input type="date" id="eventDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hora</label>
+                            <input type="time" id="eventTime" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="eventCenterGroup">
+                        <label class="form-label">Centro</label>
+                        <select id="eventCenter" class="form-select">
+                            <option value="">Todos los centros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Prioridad</label>
+                        <select id="eventPriority" class="form-select">
+                            <option value="normal">Normal</option>
+                            <option value="high">Alta</option>
+                            <option value="urgent">Urgente</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripción</label>
+                        <textarea id="eventDescription" class="form-textarea" placeholder="Detalles del evento..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addEventModal')">Cancelar</button>
+                <button type="submit" form="addEventForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Crear Evento
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Supplier Modal -->
+    <div id="addSupplierModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Proveedor</h3>
+                <button class="modal-close" onclick="closeModal('addSupplierModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addSupplierForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nombre de la Empresa *</label>
+                            <input type="text" id="supplierName" class="form-input" required placeholder="Ej: Distribuciones Médicas S.A.">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CIF/NIF *</label>
+                            <input type="text" id="supplierTaxId" class="form-input" required placeholder="A12345678">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dirección *</label>
+                        <input type="text" id="supplierAddress" class="form-input" required placeholder="Calle, número, ciudad, código postal">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Teléfono *</label>
+                            <input type="tel" id="supplierPhone" class="form-input" required placeholder="+34 900 000 000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" id="supplierEmail" class="form-input" required placeholder="contacto@proveedor.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Persona de Contacto</label>
+                            <input type="text" id="supplierContact" class="form-input" placeholder="Nombre del contacto principal">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tiempo de Entrega (días)</label>
+                            <input type="number" id="supplierDeliveryTime" class="form-input" min="1" placeholder="7">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categorías de Productos *</label>
+                        <div class="checkbox-group" id="supplierCategories">
+                            <!-- Categories will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Pedido Mínimo (€)</label>
+                            <input type="number" id="supplierMinOrder" class="form-input" step="0.01" placeholder="100.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Descuento por Volumen (%)</label>
+                            <input type="number" id="supplierDiscount" class="form-input" step="0.1" max="100" placeholder="5.0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Condiciones de Pago</label>
+                        <select id="supplierPaymentTerms" class="form-select">
+                            <option value="immediate">Pago inmediato</option>
+                            <option value="15_days">15 días</option>
+                            <option value="30_days">30 días</option>
+                            <option value="60_days">60 días</option>
+                            <option value="90_days">90 días</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notas</label>
+                        <textarea id="supplierNotes" class="form-textarea" placeholder="Información adicional sobre el proveedor..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addSupplierModal')">Cancelar</button>
+                <button type="submit" form="addSupplierForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Crear Proveedor
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Purchase Order Modal -->
+    <div id="createPurchaseOrderModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Nueva Orden de Compra</h3>
+                <button class="modal-close" onclick="closeModal('createPurchaseOrderModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createPurchaseOrderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Proveedor *</label>
+                            <select id="purchaseOrderSupplier" class="form-select" required>
+                                <option value="">Seleccionar proveedor</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="purchaseOrderCenterGroup">
+                            <label class="form-label">Centro *</label>
+                            <select id="purchaseOrderCenter" class="form-select" required>
+                                <option value="">Seleccionar centro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Productos de la Orden</label>
+                        <div id="purchaseOrderItems">
+                            <div class="purchase-order-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: end; padding: 12px; border: 1px solid var(--border); border-radius: 4px;">
+                                <div style="flex: 1;">
+                                    <label class="form-label text-xs">Producto</label>
+                                    <input type="text" class="form-input po-product" placeholder="Nombre del producto" required>
+                                </div>
+                                <div style="width: 100px;">
+                                    <label class="form-label text-xs">Cantidad</label>
+                                    <input type="number" class="form-input po-quantity" placeholder="1" min="1" required>
+                                </div>
+                                <div style="width: 120px;">
+                                    <label class="form-label text-xs">Precio Unit. (€)</label>
+                                    <input type="number" class="form-input po-price" placeholder="0.00" step="0.01" min="0" required>
+                                </div>
+                                <div style="width: 120px;">
+                                    <label class="form-label text-xs">Total (€)</label>
+                                    <input type="number" class="form-input po-total" readonly style="background: #f8f9fa;">
+                                </div>
+                                <button type="button" class="btn btn-danger btn-small" onclick="removePurchaseOrderItem(this)" style="height: 38px;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline btn-small" onclick="addPurchaseOrderItem()">
+                            <i class="fas fa-plus"></i>
+                            Añadir Producto
+                        </button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Fecha de Entrega Esperada</label>
+                            <input type="date" id="purchaseOrderDeliveryDate" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Total de la Orden</label>
+                            <input type="text" id="purchaseOrderTotal" class="form-input" readonly style="background: #f8f9fa; font-weight: bold;" value="€0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="purchaseOrderNotes" class="form-textarea" placeholder="Información adicional sobre la orden..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('createPurchaseOrderModal')">Cancelar</button>
+                <button type="submit" form="createPurchaseOrderForm" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i>
+                    Crear Orden de Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supplier Products Modal -->
+    <div id="supplierProductsModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Catálogo de Productos</h3>
+                <button class="modal-close" onclick="closeModal('supplierProductsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-4">
+                    <h4 id="supplierProductsTitle" class="font-medium mb-2"></h4>
+                    <div class="flex gap-2 mb-4">
+                        <button class="btn btn-primary btn-small" id="addSupplierProductBtn">
+                            <i class="fas fa-plus"></i>
+                            Añadir Producto
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="supplierProductsTable">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Cantidad Mínima</th>
+                                <th>Tiempo Entrega</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplierProductsTableBody">
+                            <!-- Products will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('supplierProductsModal')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Quote Modal -->
+    <div id="requestQuoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Solicitar Cotización</h3>
+                <button class="modal-close" onclick="closeModal('requestQuoteModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="requestQuoteForm">
+                    <div class="form-group">
+                        <label class="form-label">Proveedores Seleccionados</label>
+                        <div id="selectedSuppliersForQuote" class="checkbox-group">
+                            <!-- Selected suppliers will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Productos a Cotizar</label>
+                        <div id="quoteItems">
+                            <div class="quote-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: end;">
+                                <div style="flex: 1;">
+                                    <label class="form-label text-xs">Producto</label>
+                                    <input type="text" class="form-input quote-product" placeholder="Nombre del producto" required>
+                                </div>
+                                <div style="width: 100px;">
+                                    <label class="form-label text-xs">Cantidad</label>
+                                    <input type="number" class="form-input quote-quantity" placeholder="1" min="1" required>
+                                </div>
+                                <div style="width: 150px;">
+                                    <label class="form-label text-xs">Especificaciones</label>
+                                    <input type="text" class="form-input quote-specs" placeholder="Opcional">
+                                </div>
+                                <button type="button" class="btn btn-danger btn-small" onclick="removeQuoteItem(this)" style="height: 38px;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline btn-small" onclick="addQuoteItem()">
+                            <i class="fas fa-plus"></i>
+                            Añadir Producto
+                        </button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Fecha Límite de Respuesta</label>
+                            <input type="date" id="quoteDeadline" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha de Entrega Deseada</label>
+                            <input type="date" id="quoteDeliveryDate" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observaciones</label>
+                        <textarea id="quoteNotes" class="form-textarea" placeholder="Información adicional para los proveedores..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('requestQuoteModal')">Cancelar</button>
+                <button type="submit" form="requestQuoteForm" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar Solicitud
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Time Entry Modal -->
+    <div id="addTimeEntryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nueva Entrada de Tiempo</h3>
+                <button class="modal-close" onclick="closeModal('addTimeEntryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addTimeEntryForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tarea/Proyecto *</label>
+                            <input type="text" id="timeEntryTask" class="form-input" required placeholder="Descripción de la tarea">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categoría</label>
+                            <select id="timeEntryCategory" class="form-select">
+                                <option value="administrative">Administrativo</option>
+                                <option value="operational">Operacional</option>
+                                <option value="maintenance">Mantenimiento</option>
+                                <option value="training">Capacitación</option>
+                                <option value="meeting">Reuniones</option>
+                                <option value="other">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Fecha *</label>
+                            <input type="date" id="timeEntryDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Duración (horas) *</label>
+                            <input type="number" id="timeEntryHours" class="form-input" step="0.25" min="0" required placeholder="1.5">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="timeEntryCenterGroup">
+                        <label class="form-label">Centro</label>
+                        <select id="timeEntryCenter" class="form-select">
+                            <option value="">Seleccionar centro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notas</label>
+                        <textarea id="timeEntryNotes" class="form-textarea" placeholder="Detalles adicionales..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addTimeEntryModal')">Cancelar</button>
+                <button type="submit" form="addTimeEntryForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Guardar Entrada
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Transaction Modal -->
+    <div id="addTransactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nueva Transacción</h3>
+                <button class="modal-close" onclick="closeModal('addTransactionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addTransactionForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Transacción *</label>
+                            <select id="transactionType" class="form-select" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="income">Ingreso</option>
+                                <option value="expense">Gasto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha *</label>
+                            <input type="date" id="transactionDate" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripción *</label>
+                        <input type="text" id="transactionDescription" class="form-input" required placeholder="Descripción de la transacción">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Monto (€) *</label>
+                            <input type="number" id="transactionAmount" class="form-input" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categoría *</label>
+                            <select id="transactionCategory" class="form-select" required>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="supplies">Suministros</option>
+                                <option value="maintenance">Mantenimiento</option>
+                                <option value="utilities">Servicios</option>
+                                <option value="personnel">Personal</option>
+                                <option value="equipment">Equipamiento</option>
+                                <option value="services">Servicios Médicos</option>
+                                <option value="other">Otros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="transactionCenterGroup">
+                        <label class="form-label">Centro</label>
+                        <select id="transactionCenter" class="form-select">
+                            <option value="">Seleccionar centro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Método de Pago</label>
+                            <select id="transactionPaymentMethod" class="form-select">
+                                <option value="cash">Efectivo</option>
+                                <option value="bank_transfer">Transferencia</option>
+                                <option value="card">Tarjeta</option>
+                                <option value="check">Cheque</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Estado</label>
+                            <select id="transactionStatus" class="form-select">
+                                <option value="completed">Completado</option>
+                                <option value="pending">Pendiente</option>
+                                <option value="cancelled">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notas</label>
+                        <textarea id="transactionNotes" class="form-textarea" placeholder="Información adicional..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addTransactionModal')">Cancelar</button>
+                <button type="submit" form="addTransactionForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Guardar Transacción
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Budget Modal -->
+    <div id="addBudgetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nuevo Presupuesto</h3>
+                <button class="modal-close" onclick="closeModal('addBudgetModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addBudgetForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Centro *</label>
+                            <select id="budgetCenter" class="form-select" required>
+                                <option value="">Seleccionar centro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Período *</label>
+                            <select id="budgetPeriod" class="form-select" required>
+                                <option value="monthly">Mensual</option>
+                                <option value="quarterly">Trimestral</option>
+                                <option value="annual">Anual</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Fecha Inicio *</label>
+                            <input type="date" id="budgetStartDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha Fin *</label>
+                            <input type="date" id="budgetEndDate" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Presupuesto por Categorías</label>
+                        <div id="budgetCategories">
+                            <div class="budget-category-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center; padding: 8px; border: 1px solid var(--border); border-radius: 4px;">
+                                <div style="flex: 1;">
+                                    <select class="form-select budget-category" required>
+                                        <option value="">Seleccionar categoría</option>
+                                        <option value="supplies">Suministros</option>
+                                        <option value="maintenance">Mantenimiento</option>
+                                        <option value="utilities">Servicios</option>
+                                        <option value="personnel">Personal</option>
+                                        <option value="equipment">Equipamiento</option>
+                                    </select>
+                                </div>
+                                <div style="width: 120px;">
+                                    <input type="number" class="form-input budget-amount" placeholder="€0.00" step="0.01" min="0" required>
+                                </div>
+                                <button type="button" class="btn btn-danger btn-small" onclick="removeBudgetCategory(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline btn-small" onclick="addBudgetCategory()">
+                            <i class="fas fa-plus"></i>
+                            Añadir Categoría
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notas</label>
+                        <textarea id="budgetNotes" class="form-textarea" placeholder="Información adicional sobre el presupuesto..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addBudgetModal')">Cancelar</button>
+                <button type="submit" form="addBudgetForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Crear Presupuesto
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
@@ -1581,6 +2887,21 @@
         let allInventoryItems = [];
         let allOrders = [];
         let allUsers = [];
+        let allEvents = [];
+        let allTimeEntries = [];
+        let allSuppliers = [];
+        let allPurchaseOrders = [];
+        let allTransactions = [];
+        let allBudgets = [];
+        let currentCalendarDate = new Date();
+        let currentAccountingTab = 'overview';
+        let timerState = {
+            isRunning: false,
+            startTime: null,
+            elapsed: 0,
+            task: '',
+            interval: null
+        };
         let globalConfig = {
             categories: ['material_sanitario', 'alimentario', 'limpieza', 'farmacia', 'amenities', 'textil', 'mantenimiento'],
             departments: ['enfermeria', 'quirofano', 'farmacia', 'cocina', 'limpieza', 'mantenimiento', 'lavanderia', 'recepcion']
@@ -1594,18 +2915,29 @@
                 { id: 'users', label: 'Usuarios', icon: 'fas fa-users' },
                 { id: 'inventory', label: 'Inventario', icon: 'fas fa-boxes' },
                 { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' },
+                { id: 'calendar', label: 'Calendario', icon: 'fas fa-calendar' },
+                { id: 'timelog', label: 'Registro de Horas', icon: 'fas fa-clock' },
+                { id: 'suppliers', label: 'Proveedores', icon: 'fas fa-truck' },
+                { id: 'accounting', label: 'Contabilidad', icon: 'fas fa-calculator' },
                 { id: 'config', label: 'Configuración', icon: 'fas fa-cog' }
             ],
             CENTER_ADMIN: [
                 { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-home' },
                 { id: 'users', label: 'Mi Equipo', icon: 'fas fa-users' },
                 { id: 'inventory', label: 'Inventario', icon: 'fas fa-boxes' },
-                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' }
+                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' },
+                { id: 'suppliers', label: 'Proveedores', icon: 'fas fa-truck' },
+                { id: 'accounting', label: 'Contabilidad', icon: 'fas fa-calculator' },
+                { id: 'calendar', label: 'Calendario', icon: 'fas fa-calendar' },
+                { id: 'timelog', label: 'Registro de Horas', icon: 'fas fa-clock' }
             ],
             CLIENT_VIEWER: [
                 { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-home' },
                 { id: 'inventory', label: 'Inventario', icon: 'fas fa-boxes' },
-                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' }
+                { id: 'orders', label: 'Pedidos', icon: 'fas fa-shopping-cart' },
+                { id: 'suppliers', label: 'Consultar Proveedores', icon: 'fas fa-truck' },
+                { id: 'calendar', label: 'Calendario', icon: 'fas fa-calendar' },
+                { id: 'timelog', label: 'Registro de Horas', icon: 'fas fa-clock' }
             ]
         };
 
@@ -1635,17 +2967,61 @@
             document.getElementById('editStockForm').addEventListener('submit', handleEditStock);
 
             // Modal Buttons
-            document.getElementById('addCenterBtn').addEventListener('click', () => openModal('addCenterModal'));
-            document.getElementById('addUserBtn').addEventListener('click', () => openModal('addUserModal'));
-            document.getElementById('addInventoryBtn').addEventListener('click', () => openModal('addInventoryModal'));
-            document.getElementById('addOrderBtn').addEventListener('click', () => openModal('addOrderModal'));
+            document.getElementById('addCenterBtn').addEventListener('click', () => {
+                resetCenterForm();
+                populateUserCenters();
+                openModal('addCenterModal');
+            });
+            document.getElementById('addUserBtn').addEventListener('click', () => {
+                resetUserForm();
+                populateUserCenters();
+                openModal('addUserModal');
+            });
+            document.getElementById('addInventoryBtn').addEventListener('click', () => {
+                populateInventoryFilters();
+                openModal('addInventoryModal');
+            });
+            document.getElementById('addOrderBtn').addEventListener('click', () => {
+                populateOrderCenters();
+                resetOrderItems();
+                openModal('addOrderModal');
+            });
+            document.getElementById('addEventBtn').addEventListener('click', () => {
+                populateEventCenters();
+                setTodayDate('eventDate');
+                openModal('addEventModal');
+            });
+            document.getElementById('addTimeEntryBtn').addEventListener('click', () => {
+                populateTimeEntryCenters();
+                setTodayDate('timeEntryDate');
+                openModal('addTimeEntryModal');
+            });
+            document.getElementById('addSupplierBtn').addEventListener('click', () => {
+                populateSupplierCategories();
+                openModal('addSupplierModal');
+            });
+            document.getElementById('createPurchaseOrderBtn').addEventListener('click', () => {
+                populatePurchaseOrderData();
+                resetPurchaseOrderItems();
+                openModal('createPurchaseOrderModal');
+            });
+            document.getElementById('addTransactionBtn').addEventListener('click', () => {
+                populateTransactionCenters();
+                setTodayDate('transactionDate');
+                openModal('addTransactionModal');
+            });
+            document.getElementById('addBudgetBtn').addEventListener('click', () => {
+                populateBudgetCenters();
+                setDefaultBudgetDates();
+                openModal('addBudgetModal');
+            });
 
             // Center type change
             document.getElementById('centerType').addEventListener('change', handleCenterTypeChange);
 
             // Global center filter
             document.getElementById('globalCenterFilter').addEventListener('change', handleGlobalCenterFilter);
-            
+
             // Filters
             document.getElementById('departmentFilter').addEventListener('change', filterInventory);
 
@@ -1653,6 +3029,33 @@
             document.getElementById('globalConfigForm').addEventListener('submit', handleGlobalConfig);
             document.getElementById('addCategoryBtn').addEventListener('click', addCategoryField);
             document.getElementById('addDepartmentBtn').addEventListener('click', addDepartmentField);
+
+            // Calendar controls
+            document.getElementById('prevMonth').addEventListener('click', () => changeMonth(-1));
+            document.getElementById('nextMonth').addEventListener('click', () => changeMonth(1));
+            document.getElementById('todayBtn').addEventListener('click', goToToday);
+
+            // Time tracking
+            document.getElementById('startTimer').addEventListener('click', startTimer);
+            document.getElementById('pauseTimer').addEventListener('click', pauseTimer);
+            document.getElementById('stopTimer').addEventListener('click', stopTimer);
+
+            // Forms
+            document.getElementById('addEventForm').addEventListener('submit', handleAddEvent);
+            document.getElementById('addTimeEntryForm').addEventListener('submit', handleAddTimeEntry);
+            document.getElementById('addSupplierForm').addEventListener('submit', handleAddSupplier);
+            document.getElementById('createPurchaseOrderForm').addEventListener('submit', handleCreatePurchaseOrder);
+            document.getElementById('requestQuoteForm').addEventListener('submit', handleRequestQuote);
+            document.getElementById('addTransactionForm').addEventListener('submit', handleAddTransaction);
+            document.getElementById('addBudgetForm').addEventListener('submit', handleAddBudget);
+
+            // Filters
+            document.getElementById('timelogDateFilter').addEventListener('change', filterTimeEntries);
+            document.getElementById('timelogTaskFilter').addEventListener('change', filterTimeEntries);
+            document.getElementById('supplierCategoryFilter').addEventListener('change', filterSuppliers);
+            document.getElementById('purchaseOrderStatusFilter').addEventListener('change', filterPurchaseOrders);
+            document.getElementById('transactionTypeFilter').addEventListener('change', filterTransactions);
+            document.getElementById('transactionMonthFilter').addEventListener('change', filterTransactions);
         }
 
         // Authentication Functions
@@ -1665,7 +3068,44 @@
             showLoading('loginLoading');
 
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // First try to sign in
+                let userCredential;
+                try {
+                    userCredential = await signInWithEmailAndPassword(auth, email, password);
+                } catch (authError) {
+                    // If user doesn't exist and it's the admin email, create it
+                    if (authError.code === 'auth/user-not-found' || authError.code === 'auth/invalid-login-credentials') {
+                        if (email === 'admin@life.com' && password === 'admin123') {
+                            try {
+                                console.log('Creating default admin user...');
+                                userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                                
+                                // Create user document in Firestore
+                                const defaultUserData = {
+                                    name: 'Administrador LIFE',
+                                    email: email,
+                                    role: 'LIFE_ADMIN',
+                                    centerIds: [],
+                                    isActive: true,
+                                    createdAt: serverTimestamp(),
+                                    createdBy: 'system'
+                                };
+                                
+                                await setDoc(doc(db, 'users', userCredential.user.uid), defaultUserData);
+                                console.log('Default admin user created successfully');
+                                showToast('Usuario administrador creado automáticamente', 'success');
+                            } catch (createError) {
+                                console.error('Error creating default admin:', createError);
+                                throw new Error('No se pudo crear el usuario administrador: ' + createError.message);
+                            }
+                        } else {
+                            throw new Error('Credenciales inválidas. Usa admin@life.com / admin123 para acceso inicial');
+                        }
+                    } else {
+                        throw authError;
+                    }
+                }
+
                 const user = userCredential.user;
 
                 // Get user data from Firestore
@@ -1679,7 +3119,23 @@
                 }
             } catch (error) {
                 console.error('Error al iniciar sesión:', error);
-                showToast('Error al iniciar sesión: ' + error.message, 'error');
+                let errorMessage = 'Error al iniciar sesión';
+                
+                if (error.code === 'auth/invalid-login-credentials') {
+                    errorMessage = 'Credenciales inválidas. Usa: admin@life.com / admin123';
+                } else if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'Usuario no encontrado. Usa: admin@life.com / admin123';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Contraseña incorrecta. Usa: admin@life.com / admin123';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Email inválido';
+                } else if (error.code === 'auth/network-request-failed') {
+                    errorMessage = 'Error de conexión. Verifica tu conexión a internet';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                showToast(errorMessage, 'error');
             } finally {
                 hideLoading('loginLoading');
             }
@@ -1758,10 +3214,10 @@
 
         function handleGlobalCenterFilter() {
             selectedCenterId = document.getElementById('globalCenterFilter').value;
-            
+
             // Recargar datos del screen actual con el nuevo filtro
             loadScreenData(currentScreen);
-            
+
             // Mostrar toast informativo
             if (selectedCenterId) {
                 const selectedCenter = allCenters.find(c => c.id === selectedCenterId);
@@ -1846,6 +3302,10 @@
                 'users': 'Gestión de Usuarios',
                 'inventory': 'Inventario',
                 'orders': 'Pedidos',
+                'suppliers': 'Gestión de Proveedores',
+                'calendar': 'Calendario',
+                'timelog': 'Registro de Horas',
+                'accounting': 'Contabilidad',
                 'config': 'Configuración'
             };
             pageTitle.textContent = pageTitles[screenId] || 'LIFE ERP';
@@ -1877,6 +3337,18 @@
                     break;
                 case 'orders':
                     loadOrders();
+                    break;
+                case 'calendar':
+                    loadCalendar();
+                    break;
+                case 'timelog':
+                    loadTimeLog();
+                    break;
+                case 'suppliers':
+                    loadSuppliers();
+                    break;
+                case 'accounting':
+                    loadAccounting();
                     break;
                 case 'config':
                     loadConfiguration();
@@ -2194,17 +3666,17 @@
             }
 
             const centerData = {
-                name: document.getElementById('centerName').value,
+                name: document.getElementById('centerName').value.trim(),
                 type: document.getElementById('centerType').value,
-                address: document.getElementById('centerAddress').value,
-                phone: document.getElementById('centerPhone').value,
-                email: document.getElementById('centerEmail').value,
+                address: document.getElementById('centerAddress').value.trim(),
+                phone: document.getElementById('centerPhone').value.trim(),
+                email: document.getElementById('centerEmail').value.trim(),
                 departments: departments,
                 adminId: document.getElementById('centerAdmin').value,
                 isActive: true,
                 createdAt: serverTimestamp(),
                 createdBy: currentUser.uid,
-                notes: document.getElementById('centerNotes').value
+                notes: document.getElementById('centerNotes').value.trim()
             };
 
             try {
@@ -2217,10 +3689,12 @@
 
                 showToast('Centro creado correctamente', 'success');
                 closeModal('addCenterModal');
+                resetCenterForm();
                 loadCenters();
+                setupGlobalCenterFilter(); // Refresh global filter
 
                 // Reset form
-                e.target.reset();
+                document.getElementById('addCenterForm').reset();
             } catch (error) {
                 console.error('Error creating center:', error);
                 showToast('Error al crear centro', 'error');
@@ -2374,9 +3848,24 @@
             const selectedCenters = Array.from(document.querySelectorAll('#userCenters input:checked'))
                 .map(input => input.value);
 
+            const email = document.getElementById('userEmail').value.trim();
+            const password = document.getElementById('userPassword').value;
+            const name = document.getElementById('userName').value.trim();
+
+            // Validation
+            if (!email || !password || !name) {
+                showToast('Completa todos los campos obligatorios', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast('La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+
             const newUserData = {
-                name: document.getElementById('userName').value,
-                email: document.getElementById('userEmail').value,
+                name: name,
+                email: email,
                 role: document.getElementById('userRole').value,
                 centerIds: selectedCenters,
                 department: document.getElementById('userDepartment').value,
@@ -2395,21 +3884,23 @@
             }
 
             try {
-                const password = document.getElementById('userPassword').value;
-
-                // Create user in Firebase Auth
-                const userCredential = await createUserWithEmailAndPassword(auth, newUserData.email, password);
+                // Create user in Firebase Auth with temporary auth context
+                const tempAuth = getAuth();
+                const userCredential = await createUserWithEmailAndPassword(tempAuth, email, password);
                 const newUser = userCredential.user;
 
                 // Create user document in Firestore
                 await setDoc(doc(db, 'users', newUser.uid), newUserData);
+
+                // Sign out the newly created user to avoid affecting current session
+                await signOut(tempAuth);
 
                 showToast('Usuario creado correctamente', 'success');
                 closeModal('addUserModal');
                 loadUsers();
 
                 // Reset form
-                e.target.reset();
+                document.getElementById('addUserForm').reset();
             } catch (error) {
                 console.error('Error creating user:', error);
                 let errorMessage = 'Error al crear usuario';
@@ -2417,9 +3908,11 @@
                 if (error.code === 'auth/email-already-in-use') {
                     errorMessage = 'El email ya está en uso';
                 } else if (error.code === 'auth/weak-password') {
-                    errorMessage = 'La contraseña es muy débil';
+                    errorMessage = 'La contraseña es muy débil (mínimo 6 caracteres)';
                 } else if (error.code === 'auth/invalid-email') {
                     errorMessage = 'Email inválido';
+                } else if (error.code === 'invalid-argument') {
+                    errorMessage = 'Datos inválidos. Verifica todos los campos';
                 }
 
                 showToast(errorMessage, 'error');
@@ -2547,7 +4040,7 @@
                     // Si hay un centro seleccionado globalmente, ocultar selector de centro
                     inventoryCenterRow.style.display = 'none';
                     inventoryDepartmentOnly.style.display = 'block';
-                    
+
                     // Pre-seleccionar el centro
                     inventoryCenter.value = selectedCenterId;
                 } else {
@@ -2568,10 +4061,10 @@
                 // Populate departments in modal
                 const inventoryDepartmentSelect = document.getElementById('inventoryDepartment');
                 const inventoryDepartmentAlt = document.getElementById('inventoryDepartmentAlt');
-                
+
                 const departmentOptions = '<option value="">Seleccionar departamento</option>' +
                     globalConfig.departments.map(dept => `<option value="${dept}">${formatDepartmentName(dept)}</option>`).join('');
-                
+
                 inventoryDepartmentSelect.innerHTML = departmentOptions;
                 inventoryDepartmentAlt.innerHTML = departmentOptions;
 
@@ -2589,18 +4082,45 @@
                 document.getElementById('inventoryDepartmentAlt').value : 
                 document.getElementById('inventoryDepartment').value;
 
+            // Validation
+            if (!centerId) {
+                showToast('Selecciona un centro', 'error');
+                return;
+            }
+
+            if (!department) {
+                showToast('Selecciona un departamento', 'error');
+                return;
+            }
+
+            const productName = document.getElementById('inventoryProduct').value.trim();
+            const category = document.getElementById('inventoryCategory').value;
+            const currentStock = parseInt(document.getElementById('inventoryStock').value) || 0;
+            const minStock = parseInt(document.getElementById('inventoryMinStock').value) || 0;
+            const maxStock = parseInt(document.getElementById('inventoryMaxStock').value) || 0;
+
+            if (!productName || !category) {
+                showToast('Completa todos los campos obligatorios', 'error');
+                return;
+            }
+
+            if (maxStock <= minStock) {
+                showToast('El stock máximo debe ser mayor al stock mínimo', 'error');
+                return;
+            }
+
             const inventoryData = {
                 centerId: centerId,
                 department: department,
-                productName: document.getElementById('inventoryProduct').value,
-                category: document.getElementById('inventoryCategory').value,
-                currentStock: parseInt(document.getElementById('inventoryStock').value),
-                minStock: parseInt(document.getElementById('inventoryMinStock').value),
-                maxStock: parseInt(document.getElementById('inventoryMaxStock').value),
+                productName: productName,
+                category: category,
+                currentStock: currentStock,
+                minStock: minStock,
+                maxStock: maxStock,
                 expiryDate: document.getElementById('inventoryExpiry').value || null,
-                lot: document.getElementById('inventoryLot').value,
-                location: document.getElementById('inventoryLocation').value,
-                notes: document.getElementById('inventoryNotes').value,
+                lot: document.getElementById('inventoryLot').value.trim(),
+                location: document.getElementById('inventoryLocation').value.trim(),
+                notes: document.getElementById('inventoryNotes').value.trim(),
                 createdAt: serverTimestamp(),
                 createdBy: currentUser.uid,
                 lastUpdated: serverTimestamp()
@@ -2614,6 +4134,7 @@
                 }
             } catch (error) {
                 console.error('Error getting center name:', error);
+                inventoryData.centerName = 'Centro desconocido';
             }
 
             try {
@@ -2624,10 +4145,10 @@
                 loadInventory();
 
                 // Reset form
-                e.target.reset();
+                document.getElementById('addInventoryForm').reset();
             } catch (error) {
                 console.error('Error adding inventory item:', error);
-                showToast('Error al añadir producto al inventario', 'error');
+                showToast('Error al añadir producto al inventario: ' + error.message, 'error');
             }
         }
 
@@ -2816,7 +4337,7 @@
                     // Si hay un centro seleccionado globalmente, ocultar selector y pre-seleccionar
                     orderCenterGroup.style.display = 'none';
                     orderCenter.value = selectedCenterId;
-                    
+
                     // Marcar como no requerido ya que está oculto
                     orderCenter.removeAttribute('required');
                 } else {
@@ -2837,12 +4358,18 @@
             e.preventDefault();
 
             const centerId = selectedCenterId || document.getElementById('orderCenter').value;
+
+            if (!centerId) {
+                showToast('Selecciona un centro', 'error');
+                return;
+            }
+
             const orderItems = [];
 
             // Collect order items
             document.querySelectorAll('.order-item').forEach(item => {
-                const product = item.querySelector('.order-product').value;
-                const quantity = parseInt(item.querySelector('.order-quantity').value);
+                const product = item.querySelector('.order-product').value.trim();
+                const quantity = parseInt(item.querySelector('.order-quantity').value) || 0;
                 const urgency = item.querySelector('.order-urgency').value;
 
                 if (product && quantity > 0) {
@@ -2867,7 +4394,7 @@
                 items: orderItems,
                 status: totalAmount > 500 ? 'pending' : 'approved', // Auto-approve orders under €500
                 totalAmount: totalAmount,
-                notes: document.getElementById('orderNotes').value,
+                notes: document.getElementById('orderNotes').value.trim(),
                 createdAt: serverTimestamp(),
                 createdBy: currentUser.uid,
                 createdByName: userData.name || userData.email
@@ -2878,9 +4405,12 @@
                 const centerDoc = await getDoc(doc(db, 'centers', centerId));
                 if (centerDoc.exists()) {
                     orderData.centerName = centerDoc.data().name;
+                } else {
+                    orderData.centerName = 'Centro desconocido';
                 }
             } catch (error) {
                 console.error('Error getting center name:', error);
+                orderData.centerName = 'Centro desconocido';
             }
 
             try {
@@ -2891,11 +4421,11 @@
                 loadOrders();
 
                 // Reset form
-                e.target.reset();
+                document.getElementById('addOrderForm').reset();
                 resetOrderItems();
             } catch (error) {
                 console.error('Error creating order:', error);
-                showToast('Error al crear pedido', 'error');
+                showToast('Error al crear pedido: ' + error.message, 'error');
             }
         }
 
@@ -3204,37 +4734,49 @@
         // Center Management Functions
         async function editCenter(centerId) {
             try {
+                // First reset the form to its original state
+                resetCenterForm();
+
                 const centerDoc = await getDoc(doc(db, 'centers', centerId));
                 if (centerDoc.exists()) {
                     const centerData = centerDoc.data();
-                    
+
                     // Populate edit form with current data
-                    document.getElementById('centerName').value = centerData.name;
-                    document.getElementById('centerType').value = centerData.type;
-                    document.getElementById('centerAddress').value = centerData.address;
+                    document.getElementById('centerName').value = centerData.name || '';
+                    document.getElementById('centerType').value = centerData.type || '';
+                    document.getElementById('centerAddress').value = centerData.address || '';
                     document.getElementById('centerPhone').value = centerData.phone || '';
                     document.getElementById('centerEmail').value = centerData.email || '';
                     document.getElementById('centerNotes').value = centerData.notes || '';
-                    
-                    // Set departments
-                    handleCenterTypeChange();
-                    setTimeout(() => {
-                        centerData.departments?.forEach(dept => {
-                            const checkbox = document.getElementById(`dept_${dept}`);
-                            if (checkbox) checkbox.checked = true;
-                        });
-                    }, 100);
-                    
+
+                    // Set departments after populating type
+                    if (centerData.type) {
+                        handleCenterTypeChange();
+                        setTimeout(() => {
+                            // Clear all checkboxes first
+                            document.querySelectorAll('#centerDepartments input[type="checkbox"]').forEach(cb => cb.checked = false);
+                            // Then check the ones from the center
+                            centerData.departments?.forEach(dept => {
+                                const checkbox = document.getElementById(`dept_${dept}`);
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        }, 200);
+                    }
+
                     // Change form handler to update instead of create
                     const form = document.getElementById('addCenterForm');
                     form.onsubmit = async (e) => {
                         e.preventDefault();
                         await handleUpdateCenter(e, centerId);
                     };
-                    
+
+                    // Mark as editing mode
+                    form.dataset.editing = 'true';
+                    form.dataset.centerId = centerId;
+
                     document.querySelector('#addCenterModal .modal-title').textContent = 'Editar Centro';
                     document.querySelector('#addCenterModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Actualizar Centro';
-                    
+
                     openModal('addCenterModal');
                 }
             } catch (error) {
@@ -3245,7 +4787,7 @@
 
         async function handleUpdateCenter(e, centerId) {
             e.preventDefault();
-            
+
             const departments = Array.from(document.querySelectorAll('#centerDepartments input:checked'))
                 .map(input => input.value);
 
@@ -3282,8 +4824,11 @@
         function resetCenterForm() {
             const form = document.getElementById('addCenterForm');
             form.onsubmit = handleAddCenter;
+            form.removeAttribute('data-editing');
+            form.removeAttribute('data-center-id');
             document.querySelector('#addCenterModal .modal-title').textContent = 'Nuevo Centro';
             document.querySelector('#addCenterModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Crear Centro';
+            form.reset();
         }
 
         async function viewCenterDetails(centerId) {
@@ -3291,17 +4836,17 @@
                 const centerDoc = await getDoc(doc(db, 'centers', centerId));
                 if (centerDoc.exists()) {
                     const centerData = centerDoc.data();
-                    
+
                     // Get center statistics
                     const usersQuery = query(collection(db, 'users'), where('centerIds', 'array-contains', centerId));
                     const usersSnapshot = await getDocs(usersQuery);
-                    
+
                     const inventoryQuery = query(collection(db, 'inventory'), where('centerId', '==', centerId));
                     const inventorySnapshot = await getDocs(inventoryQuery);
-                    
+
                     const ordersQuery = query(collection(db, 'orders'), where('centerId', '==', centerId));
                     const ordersSnapshot = await getDocs(ordersQuery);
-                    
+
                     const modalContent = `
                         <div class="modal" id="centerDetailsModal" style="display: flex;">
                             <div class="modal-content">
@@ -3346,11 +4891,11 @@
                             </div>
                         </div>
                     `;
-                    
+
                     // Remove any existing modal
                     const existingModal = document.getElementById('centerDetailsModal');
                     if (existingModal) existingModal.remove();
-                    
+
                     // Add modal to body
                     document.body.insertAdjacentHTML('beforeend', modalContent);
                 }
@@ -3366,13 +4911,13 @@
                 const userDoc = await getDoc(doc(db, 'users', userId));
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
-                    
+
                     // Populate edit form
                     document.getElementById('userName').value = userData.name || '';
                     document.getElementById('userEmail').value = userData.email;
                     document.getElementById('userRole').value = userData.role;
                     document.getElementById('userDepartment').value = userData.department || '';
-                    
+
                     // Set assigned centers
                     await populateUserCenters();
                     setTimeout(() => {
@@ -3381,21 +4926,21 @@
                             if (checkbox) checkbox.checked = true;
                         });
                     }, 100);
-                    
+
                     // Hide password field for editing
                     const passwordGroup = document.querySelector('#userPassword').closest('.form-group');
                     passwordGroup.style.display = 'none';
-                    
+
                     // Change form handler
                     const form = document.getElementById('addUserForm');
                     form.onsubmit = async (e) => {
                         e.preventDefault();
                         await handleUpdateUser(e, userId);
                     };
-                    
+
                     document.querySelector('#addUserModal .modal-title').textContent = 'Editar Usuario';
                     document.querySelector('#addUserModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Actualizar Usuario';
-                    
+
                     openModal('addUserModal');
                 }
             } catch (error) {
@@ -3406,7 +4951,7 @@
 
         async function handleUpdateUser(e, userId) {
             e.preventDefault();
-            
+
             const selectedCenters = Array.from(document.querySelectorAll('#userCenters input:checked'))
                 .map(input => input.value);
 
@@ -3461,7 +5006,7 @@
                 const userDoc = await getDoc(doc(db, 'users', userId));
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
-                    
+
                     // Get user's centers
                     let userCenters = [];
                     if (userData.centerIds?.length) {
@@ -3469,7 +5014,7 @@
                         const centersSnapshot = await getDocs(centersQuery);
                         userCenters = centersSnapshot.docs.map(doc => doc.data().name);
                     }
-                    
+
                     const modalContent = `
                         <div class="modal" id="userDetailsModal" style="display: flex;">
                             <div class="modal-content">
@@ -3503,11 +5048,11 @@
                             </div>
                         </div>
                     `;
-                    
+
                     // Remove any existing modal
                     const existingModal = document.getElementById('userDetailsModal');
                     if (existingModal) existingModal.remove();
-                    
+
                     // Add modal to body
                     document.body.insertAdjacentHTML('beforeend', modalContent);
                 }
@@ -3523,7 +5068,7 @@
                 const orderDoc = await getDoc(doc(db, 'orders', orderId));
                 if (orderDoc.exists()) {
                     const orderData = orderDoc.data();
-                    
+
                     const modalContent = `
                         <div class="modal" id="orderDetailsModal" style="display: flex;">
                             <div class="modal-content" style="max-width: 800px;">
@@ -3548,7 +5093,7 @@
                                             ` : ''}
                                         </div>
                                     </div>
-                                    
+
                                     <h5 class="font-medium mb-2">Productos del Pedido</h5>
                                     <div class="table-container">
                                         <table class="table">
@@ -3587,11 +5132,11 @@
                             </div>
                         </div>
                     `;
-                    
+
                     // Remove any existing modal
                     const existingModal = document.getElementById('orderDetailsModal');
                     if (existingModal) existingModal.remove();
-                    
+
                     // Add modal to body
                     document.body.insertAdjacentHTML('beforeend', modalContent);
                 }
@@ -3606,16 +5151,16 @@
                 const orderDoc = await getDoc(doc(db, 'orders', orderId));
                 if (orderDoc.exists()) {
                     const orderData = orderDoc.data();
-                    
+
                     // Populate order center
                     await populateOrderCenters();
                     document.getElementById('orderCenter').value = orderData.centerId;
                     document.getElementById('orderNotes').value = orderData.notes || '';
-                    
+
                     // Populate order items
                     const orderItemsContainer = document.getElementById('orderItems');
                     orderItemsContainer.innerHTML = '';
-                    
+
                     orderData.items?.forEach((item, index) => {
                         const itemDiv = document.createElement('div');
                         itemDiv.className = 'order-item';
@@ -3643,17 +5188,17 @@
                         `;
                         orderItemsContainer.appendChild(itemDiv);
                     });
-                    
+
                     // Change form handler
                     const form = document.getElementById('addOrderForm');
                     form.onsubmit = async (e) => {
                         e.preventDefault();
                         await handleUpdateOrder(e, orderId);
                     };
-                    
+
                     document.querySelector('#addOrderModal .modal-title').textContent = 'Editar Pedido';
                     document.querySelector('#addOrderModal .btn-primary').innerHTML = '<i class="fas fa-save"></i> Actualizar Pedido';
-                    
+
                     openModal('addOrderModal');
                 }
             } catch (error) {
@@ -3664,7 +5209,7 @@
 
         async function handleUpdateOrder(e, orderId) {
             e.preventDefault();
-            
+
             const centerId = document.getElementById('orderCenter').value;
             const orderItems = [];
 
@@ -3775,6 +5320,1747 @@
                 mainContent.classList.remove('expanded');
             }
         });
+
+        // Calendar Functions
+        async function loadCalendar() {
+            try {
+                await loadEvents();
+                renderCalendar();
+                populateEventCenters();
+            } catch (error) {
+                console.error('Error loading calendar:', error);
+                showToast('Error al cargar calendario', 'error');
+            }
+        }
+
+        async function loadEvents() {
+            try {
+                let eventsQuery = collection(db, 'events');
+
+                if (selectedCenterId) {
+                    eventsQuery = query(eventsQuery, where('centerId', '==', selectedCenterId));
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    eventsQuery = query(eventsQuery, where('centerId', 'in', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(eventsQuery);
+                allEvents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            } catch (error) {
+                console.error('Error loading events:', error);
+            }
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+
+            // Update title
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            document.getElementById('calendarTitle').textContent = `${monthNames[month]} ${year}`;
+
+            // Get first day of month and days in month
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+
+            // Day headers
+            const dayHeaders = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            dayHeaders.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+
+            // Generate calendar days
+            const today = new Date();
+            for (let i = 0; i < 42; i++) { // 6 weeks
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+
+                if (currentDate.getMonth() !== month) {
+                    dayElement.classList.add('other-month');
+                }
+
+                if (currentDate.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+
+                dayElement.innerHTML = `
+                    <div class="calendar-day-number">${currentDate.getDate()}</div>
+                    <div class="calendar-events" id="events-${currentDate.toISOString().split('T')[0]}"></div>
+                `;
+
+                dayElement.onclick = () => openDayEvents(currentDate);
+                calendarGrid.appendChild(dayElement);
+
+                // Add events for this day
+                const dayEvents = allEvents.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate.toDateString() === currentDate.toDateString();
+                });
+
+                const eventsContainer = dayElement.querySelector('.calendar-events');
+                dayEvents.forEach(event => {
+                    const eventElement = document.createElement('div');
+                    eventElement.className = `calendar-event event-${event.priority}`;
+                    eventElement.textContent = event.title;
+                    eventElement.onclick = (e) => {
+                        e.stopPropagation();
+                        viewEvent(event.id);
+                    };
+                    eventsContainer.appendChild(eventElement);
+                });
+            }
+        }
+
+        function changeMonth(direction) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        function goToToday() {
+            currentCalendarDate = new Date();
+            renderCalendar();
+        }
+
+        async function populateEventCenters() {
+            try {
+                const eventCenterSelect = document.getElementById('eventCenter');
+                eventCenterSelect.innerHTML = '<option value="">Todos los centros</option>' +
+                    allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+
+                if (selectedCenterId) {
+                    eventCenterSelect.value = selectedCenterId;
+                }
+            } catch (error) {
+                console.error('Error populating event centers:', error);
+            }
+        }
+
+        async function handleAddEvent(e) {
+            e.preventDefault();
+
+            const eventData = {
+                title: document.getElementById('eventTitle').value.trim(),
+                type: document.getElementById('eventType').value,
+                date: document.getElementById('eventDate').value,
+                time: document.getElementById('eventTime').value,
+                centerId: document.getElementById('eventCenter').value || null,
+                priority: document.getElementById('eventPriority').value,
+                description: document.getElementById('eventDescription').value.trim(),
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                createdByName: userData.name || userData.email
+            };
+
+            // Get center name if centerId is provided
+            if (eventData.centerId) {
+                const center = allCenters.find(c => c.id === eventData.centerId);
+                eventData.centerName = center?.name || 'Centro desconocido';
+            }
+
+            try {
+                await addDoc(collection(db, 'events'), eventData);
+                showToast('Evento creado correctamente', 'success');
+                closeModal('addEventModal');
+                document.getElementById('addEventForm').reset();
+                loadCalendar();
+            } catch (error) {
+                console.error('Error creating event:', error);
+                showToast('Error al crear evento', 'error');
+            }
+        }
+
+        // Time Log Functions
+        async function loadTimeLog() {
+            try {
+                await loadTimeEntries();
+                renderTimeEntries();
+                updateTimeSummary();
+                populateTimeEntryCenters();
+            } catch (error) {
+                console.error('Error loading time log:', error);
+                showToast('Error al cargar registro de horas', 'error');
+            }
+        }
+
+        async function loadTimeEntries() {
+            try {
+                let timeEntriesQuery = collection(db, 'timeEntries');
+
+                if (selectedCenterId) {
+                    timeEntriesQuery = query(
+                        timeEntriesQuery, 
+                        where('centerId', '==', selectedCenterId),
+                        orderBy('date', 'desc')
+                    );
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    timeEntriesQuery = query(
+                        timeEntriesQuery,
+                        where('userId', '==', currentUser.uid),
+                        orderBy('date', 'desc')
+                    );
+                } else {
+                    timeEntriesQuery = query(timeEntriesQuery, orderBy('date', 'desc'));
+                }
+
+                const snapshot = await getDocs(timeEntriesQuery);
+                allTimeEntries = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            } catch (error) {
+                console.error('Error loading time entries:', error);
+            }
+        }
+
+        function renderTimeEntries(filteredEntries = null) {
+            const entries = filteredEntries || allTimeEntries;
+            const timeEntriesList = document.getElementById('timeEntriesList');
+
+            if (entries.length === 0) {
+                timeEntriesList.innerHTML = '<p class="text-center text-secondary">No hay entradas de tiempo registradas</p>';
+                return;
+            }
+
+            timeEntriesList.innerHTML = entries.map(entry => `
+                <div class="time-entry">
+                    <div style="flex: 1;">
+                        <div class="font-medium">${entry.task}</div>
+                        <div class="text-sm text-secondary">${entry.category} - ${formatDate(entry.date)}</div>
+                        ${entry.centerName ? `<div class="text-xs text-secondary">${entry.centerName}</div>` : ''}
+                    </div>
+                    <div class="font-medium">${formatDuration(entry.hours)}</div>
+                    <div class="flex gap-1">
+                        <button class="btn btn-small btn-outline" onclick="editTimeEntry('${entry.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-small btn-danger" onclick="deleteTimeEntry('${entry.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateTimeSummary() {
+            const today = new Date().toISOString().split('T')[0];
+            const thisWeekStart = getWeekStart(new Date());
+            const thisMonthStart = new Date();
+            thisMonthStart.setDate(1);
+
+            const todayHours = allTimeEntries
+                .filter(entry => entry.date === today)
+                .reduce((sum, entry) => sum + entry.hours, 0);
+
+            const weekHours = allTimeEntries
+                .filter(entry => new Date(entry.date) >= thisWeekStart)
+                .reduce((sum, entry) => sum + entry.hours, 0);
+
+            const monthHours = allTimeEntries
+                .filter(entry => new Date(entry.date) >= thisMonthStart)
+                .reduce((sum, entry) => sum + entry.hours, 0);
+
+            document.getElementById('todayHours').textContent = formatDuration(todayHours);
+            document.getElementById('weekHours').textContent = formatDuration(weekHours);
+            document.getElementById('monthHours').textContent = formatDuration(monthHours);
+        }
+
+        function startTimer() {
+            const task = document.getElementById('activeTask').value.trim();
+            if (!task) {
+                showToast('Ingresa una descripción de la tarea', 'warning');
+                return;
+            }
+
+            timerState.isRunning = true;
+            timerState.startTime = Date.now() - timerState.elapsed;
+            timerState.task = task;
+
+            document.getElementById('startTimer').classList.add('hidden');
+            document.getElementById('pauseTimer').classList.remove('hidden');
+            document.getElementById('stopTimer').classList.remove('hidden');
+            document.getElementById('activeTaskInfo').textContent = `Trabajando en: ${task}`;
+
+            timerState.interval = setInterval(updateTimerDisplay, 1000);
+            updateTimerDisplay();
+        }
+
+        function pauseTimer() {
+            timerState.isRunning = false;
+            timerState.elapsed = Date.now() - timerState.startTime;
+
+            document.getElementById('startTimer').classList.remove('hidden');
+            document.getElementById('pauseTimer').classList.add('hidden');
+            document.getElementById('activeTaskInfo').textContent = `Pausado: ${timerState.task}`;
+
+            clearInterval(timerState.interval);
+        }
+
+        async function stopTimer() {
+            if (timerState.elapsed === 0) {
+                showToast('El timer no ha registrado tiempo', 'warning');
+                return;
+            }
+
+            const totalMinutes = Math.floor(timerState.elapsed / 60000);
+            const hours = totalMinutes / 60;
+
+            if (hours < 0.1) {
+                showToast('Tiempo muy corto para registrar (mínimo 6 minutos)', 'warning');
+                resetTimer();
+                return;
+            }
+
+            // Save time entry
+            const timeEntryData = {
+                task: timerState.task,
+                hours: parseFloat(hours.toFixed(2)),
+                date: new Date().toISOString().split('T')[0],
+                category: 'operational',
+                centerId: selectedCenterId || null,
+                centerName: selectedCenterId ? allCenters.find(c => c.id === selectedCenterId)?.name : null,
+                userId: currentUser.uid,
+                userName: userData.name || userData.email,
+                createdAt: serverTimestamp(),
+                fromTimer: true
+            };
+
+            try {
+                await addDoc(collection(db, 'timeEntries'), timeEntryData);
+                showToast(`Tiempo registrado: ${formatDuration(hours)} para "${timerState.task}"`, 'success');
+                resetTimer();
+                loadTimeLog();
+            } catch (error) {
+                console.error('Error saving time entry:', error);
+                showToast('Error al guardar entrada de tiempo', 'error');
+            }
+        }
+
+        function resetTimer() {
+            timerState.isRunning = false;
+            timerState.startTime = null;
+            timerState.elapsed = 0;
+            timerState.task = '';
+
+            document.getElementById('startTimer').classList.remove('hidden');
+            document.getElementById('pauseTimer').classList.add('hidden');
+            document.getElementById('stopTimer').classList.add('hidden');
+            document.getElementById('activeTimer').textContent = '00:00:00';
+            document.getElementById('activeTask').value = '';
+            document.getElementById('activeTaskInfo').textContent = 'Sin tarea activa';
+
+            clearInterval(timerState.interval);
+        }
+
+        function updateTimerDisplay() {
+            if (timerState.isRunning) {
+                timerState.elapsed = Date.now() - timerState.startTime;
+            }
+
+            const hours = Math.floor(timerState.elapsed / 3600000);
+            const minutes = Math.floor((timerState.elapsed % 3600000) / 60000);
+            const seconds = Math.floor((timerState.elapsed % 60000) / 1000);
+
+            const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('activeTimer').textContent = display;
+            document.getElementById('activeTimer').className = `timer-display ${timerState.isRunning ? 'timer-running' : 'timer-paused'}`;
+        }
+
+        async function populateTimeEntryCenters() {
+            try {
+                const timeEntryCenterSelect = document.getElementById('timeEntryCenter');
+                timeEntryCenterSelect.innerHTML = '<option value="">Seleccionar centro</option>' +
+                    allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+
+                if (selectedCenterId) {
+                    timeEntryCenterSelect.value = selectedCenterId;
+                }
+            } catch (error) {
+                console.error('Error populating time entry centers:', error);
+            }
+        }
+
+        async function handleAddTimeEntry(e) {
+            e.preventDefault();
+
+            const timeEntryData = {
+                task: document.getElementById('timeEntryTask').value.trim(),
+                category: document.getElementById('timeEntryCategory').value,
+                date: document.getElementById('timeEntryDate').value,
+                hours: parseFloat(document.getElementById('timeEntryHours').value),
+                centerId: document.getElementById('timeEntryCenter').value || null,
+                notes: document.getElementById('timeEntryNotes').value.trim(),
+                userId: currentUser.uid,
+                userName: userData.name || userData.email,
+                createdAt: serverTimestamp(),
+                fromTimer: false
+            };
+
+            // Get center name if centerId is provided
+            if (timeEntryData.centerId) {
+                const center = allCenters.find(c => c.id === timeEntryData.centerId);
+                timeEntryData.centerName = center?.name || 'Centro desconocido';
+            }
+
+            try {
+                await addDoc(collection(db, 'timeEntries'), timeEntryData);
+                showToast('Entrada de tiempo registrada correctamente', 'success');
+                closeModal('addTimeEntryModal');
+                document.getElementById('addTimeEntryForm').reset();
+                loadTimeLog();
+            } catch (error) {
+                console.error('Error creating time entry:', error);
+                showToast('Error al registrar entrada de tiempo', 'error');
+            }
+        }
+
+        function filterTimeEntries() {
+            const dateFilter = document.getElementById('timelogDateFilter').value;
+            const taskFilter = document.getElementById('timelogTaskFilter').value.toLowerCase();
+
+            let filteredEntries = allTimeEntries;
+
+            if (dateFilter) {
+                filteredEntries = filteredEntries.filter(entry => entry.date === dateFilter);
+            }
+
+            if (taskFilter) {
+                filteredEntries = filteredEntries.filter(entry => 
+                    entry.task.toLowerCase().includes(taskFilter) ||
+                    entry.category.toLowerCase().includes(taskFilter)
+                );
+            }
+
+            renderTimeEntries(filteredEntries);
+        }
+
+        // Suppliers Functions
+        async function loadSuppliers() {
+            showLoading('suppliersLoading');
+
+            try {
+                let suppliersQuery = collection(db, 'suppliers');
+
+                const snapshot = await getDocs(suppliersQuery);
+                allSuppliers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderSuppliers(allSuppliers);
+                populateSupplierFilters();
+                
+                // Load purchase orders
+                await loadPurchaseOrders();
+            } catch (error) {
+                console.error('Error loading suppliers:', error);
+                showToast('Error al cargar proveedores', 'error');
+            } finally {
+                hideLoading('suppliersLoading');
+            }
+        }
+
+        function renderSuppliers(suppliers) {
+            const suppliersTableBody = document.getElementById('suppliersTableBody');
+
+            if (suppliers.length === 0) {
+                suppliersTableBody.innerHTML = '<tr><td colspan="7" class="text-center text-secondary">No hay proveedores registrados</td></tr>';
+                return;
+            }
+
+            suppliersTableBody.innerHTML = suppliers.map(supplier => `
+                <tr>
+                    <td>
+                        <strong>${supplier.name}</strong>
+                        <br><small class="text-secondary">${supplier.taxId}</small>
+                    </td>
+                    <td>
+                        ${supplier.categories?.map(cat => 
+                            `<span class="badge badge-approved" style="margin: 1px;">${formatCategoryName(cat)}</span>`
+                        ).join(' ') || 'Sin categorías'}
+                    </td>
+                    <td>
+                        <div>${supplier.email}</div>
+                        <div class="text-sm text-secondary">${supplier.phone}</div>
+                        ${supplier.contactPerson ? `<div class="text-xs text-secondary">Contacto: ${supplier.contactPerson}</div>` : ''}
+                    </td>
+                    <td>
+                        <div class="flex items-center gap-1">
+                            ${renderStarRating(supplier.rating || 0)}
+                            <span class="text-sm">(${(supplier.rating || 0).toFixed(1)})</span>
+                        </div>
+                    </td>
+                    <td>${supplier.deliveryTime || 'N/A'} días</td>
+                    <td><span class="badge badge-${supplier.isActive ? 'active' : 'inactive'}">${supplier.isActive ? 'Activo' : 'Inactivo'}</span></td>
+                    <td>
+                        <div class="flex gap-1">
+                            <button class="btn btn-small btn-primary" onclick="viewSupplierProducts('${supplier.id}')">
+                                <i class="fas fa-box"></i>
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="requestQuote(['${supplier.id}'])">
+                                <i class="fas fa-file-invoice"></i>
+                            </button>
+                            ${userData.role === 'LIFE_ADMIN' || userData.role === 'CENTER_ADMIN' ? `
+                                <button class="btn btn-small btn-outline" onclick="editSupplier('${supplier.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            ` : ''}
+                            <button class="btn btn-small btn-success" onclick="createPurchaseOrderForSupplier('${supplier.id}')">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderStarRating(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<i class="fas fa-star" style="color: #ffc107;"></i>';
+                } else if (i - 0.5 <= rating) {
+                    stars += '<i class="fas fa-star-half-alt" style="color: #ffc107;"></i>';
+                } else {
+                    stars += '<i class="far fa-star" style="color: #ffc107;"></i>';
+                }
+            }
+            return stars;
+        }
+
+        async function populateSupplierFilters() {
+            try {
+                const supplierCategoryFilter = document.getElementById('supplierCategoryFilter');
+                supplierCategoryFilter.innerHTML = '<option value="">Todas las categorías</option>' +
+                    globalConfig.categories.map(cat => `<option value="${cat}">${formatCategoryName(cat)}</option>`).join('');
+            } catch (error) {
+                console.error('Error populating supplier filters:', error);
+            }
+        }
+
+        async function populateSupplierCategories() {
+            try {
+                const supplierCategoriesContainer = document.getElementById('supplierCategories');
+                supplierCategoriesContainer.innerHTML = globalConfig.categories.map(cat => `
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="${cat}" id="supplier_cat_${cat}">
+                        <label for="supplier_cat_${cat}">${formatCategoryName(cat)}</label>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error populating supplier categories:', error);
+            }
+        }
+
+        async function handleAddSupplier(e) {
+            e.preventDefault();
+
+            const selectedCategories = Array.from(document.querySelectorAll('#supplierCategories input:checked'))
+                .map(input => input.value);
+
+            if (selectedCategories.length === 0) {
+                showToast('Selecciona al menos una categoría de productos', 'error');
+                return;
+            }
+
+            const supplierData = {
+                name: document.getElementById('supplierName').value.trim(),
+                taxId: document.getElementById('supplierTaxId').value.trim(),
+                address: document.getElementById('supplierAddress').value.trim(),
+                phone: document.getElementById('supplierPhone').value.trim(),
+                email: document.getElementById('supplierEmail').value.trim(),
+                contactPerson: document.getElementById('supplierContact').value.trim(),
+                deliveryTime: parseInt(document.getElementById('supplierDeliveryTime').value) || null,
+                categories: selectedCategories,
+                minOrderAmount: parseFloat(document.getElementById('supplierMinOrder').value) || 0,
+                volumeDiscount: parseFloat(document.getElementById('supplierDiscount').value) || 0,
+                paymentTerms: document.getElementById('supplierPaymentTerms').value,
+                notes: document.getElementById('supplierNotes').value.trim(),
+                rating: 0,
+                isActive: true,
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                lastUpdate: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, 'suppliers'), supplierData);
+                showToast('Proveedor creado correctamente', 'success');
+                closeModal('addSupplierModal');
+                document.getElementById('addSupplierForm').reset();
+                loadSuppliers();
+            } catch (error) {
+                console.error('Error creating supplier:', error);
+                showToast('Error al crear proveedor', 'error');
+            }
+        }
+
+        function filterSuppliers() {
+            const categoryFilter = document.getElementById('supplierCategoryFilter').value;
+            const rows = document.querySelectorAll('#suppliersTableBody tr');
+
+            rows.forEach(row => {
+                let shouldShow = true;
+
+                if (categoryFilter) {
+                    const categoriesCell = row.cells[1]?.textContent || '';
+                    shouldShow = shouldShow && categoriesCell.toLowerCase().includes(formatCategoryName(categoryFilter).toLowerCase());
+                }
+
+                row.style.display = shouldShow ? '' : 'none';
+            });
+        }
+
+        // Purchase Orders Functions
+        async function loadPurchaseOrders() {
+            showLoading('purchaseOrdersLoading');
+
+            try {
+                let purchaseOrdersQuery = collection(db, 'purchaseOrders');
+
+                if (selectedCenterId) {
+                    purchaseOrdersQuery = query(
+                        purchaseOrdersQuery,
+                        where('centerId', '==', selectedCenterId),
+                        orderBy('createdAt', 'desc')
+                    );
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    purchaseOrdersQuery = query(
+                        purchaseOrdersQuery,
+                        where('centerId', 'in', userData.centerIds || []),
+                        orderBy('createdAt', 'desc')
+                    );
+                } else {
+                    purchaseOrdersQuery = query(purchaseOrdersQuery, orderBy('createdAt', 'desc'));
+                }
+
+                const snapshot = await getDocs(purchaseOrdersQuery);
+                allPurchaseOrders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderPurchaseOrders(allPurchaseOrders);
+            } catch (error) {
+                console.error('Error loading purchase orders:', error);
+                showToast('Error al cargar órdenes de compra', 'error');
+            } finally {
+                hideLoading('purchaseOrdersLoading');
+            }
+        }
+
+        function renderPurchaseOrders(orders) {
+            const purchaseOrdersTableBody = document.getElementById('purchaseOrdersTableBody');
+
+            if (orders.length === 0) {
+                purchaseOrdersTableBody.innerHTML = '<tr><td colspan="7" class="text-center text-secondary">No hay órdenes de compra registradas</td></tr>';
+                return;
+            }
+
+            purchaseOrdersTableBody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>#${order.id.substring(0, 8)}</td>
+                    <td>${order.supplierName || 'Sin asignar'}</td>
+                    <td>${order.centerName || 'Sin asignar'}</td>
+                    <td>${formatDate(order.createdAt)}</td>
+                    <td>${formatCurrency(order.totalAmount || 0)}</td>
+                    <td><span class="badge badge-${getPurchaseOrderStatusBadge(order.status)}">${getPurchaseOrderStatusName(order.status)}</span></td>
+                    <td>
+                        <div class="flex gap-1">
+                            <button class="btn btn-small btn-primary" onclick="viewPurchaseOrder('${order.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            ${canManagePurchaseOrder(order) ? `
+                                <button class="btn btn-small btn-outline" onclick="editPurchaseOrder('${order.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                ${order.status === 'draft' || order.status === 'sent' ? `
+                                    <button class="btn btn-small btn-success" onclick="confirmPurchaseOrder('${order.id}')">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                ` : ''}
+                                ${order.status === 'confirmed' ? `
+                                    <button class="btn btn-small btn-warning" onclick="markInTransit('${order.id}')">
+                                        <i class="fas fa-truck"></i>
+                                    </button>
+                                ` : ''}
+                                ${order.status === 'in_transit' ? `
+                                    <button class="btn btn-small btn-success" onclick="markDelivered('${order.id}')">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                ` : ''}
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getPurchaseOrderStatusBadge(status) {
+            const badges = {
+                'draft': 'pending',
+                'sent': 'active',
+                'confirmed': 'approved',
+                'in_transit': 'pending',
+                'delivered': 'active',
+                'cancelled': 'inactive'
+            };
+            return badges[status] || 'pending';
+        }
+
+        function getPurchaseOrderStatusName(status) {
+            const names = {
+                'draft': 'Borrador',
+                'sent': 'Enviada',
+                'confirmed': 'Confirmada',
+                'in_transit': 'En Tránsito',
+                'delivered': 'Entregada',
+                'cancelled': 'Cancelada'
+            };
+            return names[status] || status;
+        }
+
+        function canManagePurchaseOrder(order) {
+            if (userData.role === 'LIFE_ADMIN') return true;
+            if (userData.role === 'CENTER_ADMIN') {
+                return userData.centerIds?.includes(order.centerId);
+            }
+            return false;
+        }
+
+        async function populatePurchaseOrderData() {
+            try {
+                // Populate suppliers
+                const purchaseOrderSupplier = document.getElementById('purchaseOrderSupplier');
+                purchaseOrderSupplier.innerHTML = '<option value="">Seleccionar proveedor</option>' +
+                    allSuppliers.filter(s => s.isActive).map(supplier => 
+                        `<option value="${supplier.id}">${supplier.name}</option>`
+                    ).join('');
+
+                // Populate centers
+                const purchaseOrderCenterGroup = document.getElementById('purchaseOrderCenterGroup');
+                const purchaseOrderCenter = document.getElementById('purchaseOrderCenter');
+
+                if (selectedCenterId) {
+                    purchaseOrderCenterGroup.style.display = 'none';
+                    purchaseOrderCenter.value = selectedCenterId;
+                    purchaseOrderCenter.removeAttribute('required');
+                } else {
+                    purchaseOrderCenterGroup.style.display = 'block';
+                    purchaseOrderCenter.setAttribute('required', '');
+                    purchaseOrderCenter.innerHTML = '<option value="">Seleccionar centro</option>' +
+                        allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+                }
+
+                // Set delivery date to one week from now
+                const deliveryDate = new Date();
+                deliveryDate.setDate(deliveryDate.getDate() + 7);
+                document.getElementById('purchaseOrderDeliveryDate').value = deliveryDate.toISOString().split('T')[0];
+
+            } catch (error) {
+                console.error('Error populating purchase order data:', error);
+            }
+        }
+
+        function resetPurchaseOrderItems() {
+            const purchaseOrderItems = document.getElementById('purchaseOrderItems');
+            purchaseOrderItems.innerHTML = `
+                <div class="purchase-order-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: end; padding: 12px; border: 1px solid var(--border); border-radius: 4px;">
+                    <div style="flex: 1;">
+                        <label class="form-label text-xs">Producto</label>
+                        <input type="text" class="form-input po-product" placeholder="Nombre del producto" required>
+                    </div>
+                    <div style="width: 100px;">
+                        <label class="form-label text-xs">Cantidad</label>
+                        <input type="number" class="form-input po-quantity" placeholder="1" min="1" required onchange="calculatePurchaseOrderItemTotal(this)">
+                    </div>
+                    <div style="width: 120px;">
+                        <label class="form-label text-xs">Precio Unit. (€)</label>
+                        <input type="number" class="form-input po-price" placeholder="0.00" step="0.01" min="0" required onchange="calculatePurchaseOrderItemTotal(this)">
+                    </div>
+                    <div style="width: 120px;">
+                        <label class="form-label text-xs">Total (€)</label>
+                        <input type="number" class="form-input po-total" readonly style="background: #f8f9fa;">
+                    </div>
+                    <button type="button" class="btn btn-danger btn-small" onclick="removePurchaseOrderItem(this)" style="height: 38px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        function addPurchaseOrderItem() {
+            const purchaseOrderItems = document.getElementById('purchaseOrderItems');
+            const newItem = document.createElement('div');
+            newItem.className = 'purchase-order-item';
+            newItem.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; align-items: end; padding: 12px; border: 1px solid var(--border); border-radius: 4px;';
+
+            newItem.innerHTML = `
+                <div style="flex: 1;">
+                    <label class="form-label text-xs">Producto</label>
+                    <input type="text" class="form-input po-product" placeholder="Nombre del producto" required>
+                </div>
+                <div style="width: 100px;">
+                    <label class="form-label text-xs">Cantidad</label>
+                    <input type="number" class="form-input po-quantity" placeholder="1" min="1" required onchange="calculatePurchaseOrderItemTotal(this)">
+                </div>
+                <div style="width: 120px;">
+                    <label class="form-label text-xs">Precio Unit. (€)</label>
+                    <input type="number" class="form-input po-price" placeholder="0.00" step="0.01" min="0" required onchange="calculatePurchaseOrderItemTotal(this)">
+                </div>
+                <div style="width: 120px;">
+                    <label class="form-label text-xs">Total (€)</label>
+                    <input type="number" class="form-input po-total" readonly style="background: #f8f9fa;">
+                </div>
+                <button type="button" class="btn btn-danger btn-small" onclick="removePurchaseOrderItem(this)" style="height: 38px;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+
+            purchaseOrderItems.appendChild(newItem);
+        }
+
+        function removePurchaseOrderItem(button) {
+            const purchaseOrderItems = document.getElementById('purchaseOrderItems');
+            if (purchaseOrderItems.children.length > 1) {
+                button.closest('.purchase-order-item').remove();
+                calculatePurchaseOrderTotal();
+            } else {
+                showToast('Debe haber al menos un producto en la orden', 'warning');
+            }
+        }
+
+        function calculatePurchaseOrderItemTotal(input) {
+            const item = input.closest('.purchase-order-item');
+            const quantity = parseFloat(item.querySelector('.po-quantity').value) || 0;
+            const price = parseFloat(item.querySelector('.po-price').value) || 0;
+            const total = quantity * price;
+            
+            item.querySelector('.po-total').value = total.toFixed(2);
+            calculatePurchaseOrderTotal();
+        }
+
+        function calculatePurchaseOrderTotal() {
+            const items = document.querySelectorAll('.purchase-order-item');
+            let total = 0;
+
+            items.forEach(item => {
+                const itemTotal = parseFloat(item.querySelector('.po-total').value) || 0;
+                total += itemTotal;
+            });
+
+            document.getElementById('purchaseOrderTotal').value = formatCurrency(total);
+        }
+
+        async function handleCreatePurchaseOrder(e) {
+            e.preventDefault();
+
+            const supplierId = document.getElementById('purchaseOrderSupplier').value;
+            const centerId = selectedCenterId || document.getElementById('purchaseOrderCenter').value;
+
+            if (!supplierId) {
+                showToast('Selecciona un proveedor', 'error');
+                return;
+            }
+
+            if (!centerId) {
+                showToast('Selecciona un centro', 'error');
+                return;
+            }
+
+            const orderItems = [];
+            let totalAmount = 0;
+
+            // Collect order items
+            document.querySelectorAll('.purchase-order-item').forEach(item => {
+                const product = item.querySelector('.po-product').value.trim();
+                const quantity = parseInt(item.querySelector('.po-quantity').value) || 0;
+                const price = parseFloat(item.querySelector('.po-price').value) || 0;
+                const itemTotal = quantity * price;
+
+                if (product && quantity > 0 && price > 0) {
+                    orderItems.push({
+                        productName: product,
+                        quantity: quantity,
+                        unitPrice: price,
+                        totalPrice: itemTotal
+                    });
+                    totalAmount += itemTotal;
+                }
+            });
+
+            if (orderItems.length === 0) {
+                showToast('Añade al menos un producto a la orden', 'error');
+                return;
+            }
+
+            // Get supplier and center data
+            const supplier = allSuppliers.find(s => s.id === supplierId);
+            const center = allCenters.find(c => c.id === centerId);
+
+            const purchaseOrderData = {
+                supplierId: supplierId,
+                supplierName: supplier?.name || 'Proveedor desconocido',
+                centerId: centerId,
+                centerName: center?.name || 'Centro desconocido',
+                items: orderItems,
+                totalAmount: totalAmount,
+                status: 'draft',
+                deliveryDate: document.getElementById('purchaseOrderDeliveryDate').value,
+                notes: document.getElementById('purchaseOrderNotes').value.trim(),
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                createdByName: userData.name || userData.email,
+                lastUpdate: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, 'purchaseOrders'), purchaseOrderData);
+                showToast('Orden de compra creada correctamente', 'success');
+                closeModal('createPurchaseOrderModal');
+                document.getElementById('createPurchaseOrderForm').reset();
+                resetPurchaseOrderItems();
+                loadPurchaseOrders();
+            } catch (error) {
+                console.error('Error creating purchase order:', error);
+                showToast('Error al crear orden de compra', 'error');
+            }
+        }
+
+        function filterPurchaseOrders() {
+            const statusFilter = document.getElementById('purchaseOrderStatusFilter').value;
+            const rows = document.querySelectorAll('#purchaseOrdersTableBody tr');
+
+            rows.forEach(row => {
+                let shouldShow = true;
+
+                if (statusFilter) {
+                    const statusCell = row.cells[5]?.textContent || '';
+                    shouldShow = shouldShow && statusCell.toLowerCase().includes(getPurchaseOrderStatusName(statusFilter).toLowerCase());
+                }
+
+                row.style.display = shouldShow ? '' : 'none';
+            });
+        }
+
+        // Supplier Product Management
+        async function viewSupplierProducts(supplierId) {
+            try {
+                const supplier = allSuppliers.find(s => s.id === supplierId);
+                if (!supplier) return;
+
+                document.getElementById('supplierProductsTitle').textContent = `${supplier.name} - Catálogo de Productos`;
+
+                // Load supplier products (this would be a separate collection in a real implementation)
+                const supplierProductsTableBody = document.getElementById('supplierProductsTableBody');
+                supplierProductsTableBody.innerHTML = `
+                    <tr><td colspan="6" class="text-center text-secondary">
+                        Función de catálogo de productos del proveedor en desarrollo.<br>
+                        <small>Esta funcionalidad permitirá gestionar el catálogo completo de productos de cada proveedor.</small>
+                    </td></tr>
+                `;
+
+                openModal('supplierProductsModal');
+            } catch (error) {
+                console.error('Error loading supplier products:', error);
+                showToast('Error al cargar productos del proveedor', 'error');
+            }
+        }
+
+        // Quote Management
+        async function requestQuote(supplierIds) {
+            try {
+                const selectedSuppliersContainer = document.getElementById('selectedSuppliersForQuote');
+                
+                const selectedSuppliers = allSuppliers.filter(s => supplierIds.includes(s.id));
+                selectedSuppliersContainer.innerHTML = selectedSuppliers.map(supplier => `
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="${supplier.id}" id="quote_supplier_${supplier.id}" checked>
+                        <label for="quote_supplier_${supplier.id}">${supplier.name}</label>
+                    </div>
+                `).join('');
+
+                // Set default deadline to 7 days from now
+                const deadline = new Date();
+                deadline.setDate(deadline.getDate() + 7);
+                document.getElementById('quoteDeadline').value = deadline.toISOString().split('T')[0];
+
+                resetQuoteItems();
+                openModal('requestQuoteModal');
+            } catch (error) {
+                console.error('Error preparing quote request:', error);
+                showToast('Error al preparar solicitud de cotización', 'error');
+            }
+        }
+
+        function resetQuoteItems() {
+            const quoteItems = document.getElementById('quoteItems');
+            quoteItems.innerHTML = `
+                <div class="quote-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: end;">
+                    <div style="flex: 1;">
+                        <label class="form-label text-xs">Producto</label>
+                        <input type="text" class="form-input quote-product" placeholder="Nombre del producto" required>
+                    </div>
+                    <div style="width: 100px;">
+                        <label class="form-label text-xs">Cantidad</label>
+                        <input type="number" class="form-input quote-quantity" placeholder="1" min="1" required>
+                    </div>
+                    <div style="width: 150px;">
+                        <label class="form-label text-xs">Especificaciones</label>
+                        <input type="text" class="form-input quote-specs" placeholder="Opcional">
+                    </div>
+                    <button type="button" class="btn btn-danger btn-small" onclick="removeQuoteItem(this)" style="height: 38px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        function addQuoteItem() {
+            const quoteItems = document.getElementById('quoteItems');
+            const newItem = document.createElement('div');
+            newItem.className = 'quote-item';
+            newItem.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; align-items: end;';
+
+            newItem.innerHTML = `
+                <div style="flex: 1;">
+                    <label class="form-label text-xs">Producto</label>
+                    <input type="text" class="form-input quote-product" placeholder="Nombre del producto" required>
+                </div>
+                <div style="width: 100px;">
+                    <label class="form-label text-xs">Cantidad</label>
+                    <input type="number" class="form-input quote-quantity" placeholder="1" min="1" required>
+                </div>
+                <div style="width: 150px;">
+                    <label class="form-label text-xs">Especificaciones</label>
+                    <input type="text" class="form-input quote-specs" placeholder="Opcional">
+                </div>
+                <button type="button" class="btn btn-danger btn-small" onclick="removeQuoteItem(this)" style="height: 38px;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+
+            quoteItems.appendChild(newItem);
+        }
+
+        function removeQuoteItem(button) {
+            const quoteItems = document.getElementById('quoteItems');
+            if (quoteItems.children.length > 1) {
+                button.closest('.quote-item').remove();
+            } else {
+                showToast('Debe haber al menos un producto en la cotización', 'warning');
+            }
+        }
+
+        async function handleRequestQuote(e) {
+            e.preventDefault();
+
+            const selectedSuppliers = Array.from(document.querySelectorAll('#selectedSuppliersForQuote input:checked'))
+                .map(input => input.value);
+
+            if (selectedSuppliers.length === 0) {
+                showToast('Selecciona al menos un proveedor', 'error');
+                return;
+            }
+
+            const quoteItems = [];
+            document.querySelectorAll('.quote-item').forEach(item => {
+                const product = item.querySelector('.quote-product').value.trim();
+                const quantity = parseInt(item.querySelector('.quote-quantity').value) || 0;
+                const specs = item.querySelector('.quote-specs').value.trim();
+
+                if (product && quantity > 0) {
+                    quoteItems.push({
+                        productName: product,
+                        quantity: quantity,
+                        specifications: specs
+                    });
+                }
+            });
+
+            if (quoteItems.length === 0) {
+                showToast('Añade al menos un producto a la cotización', 'error');
+                return;
+            }
+
+            const quoteData = {
+                supplierIds: selectedSuppliers,
+                items: quoteItems,
+                deadline: document.getElementById('quoteDeadline').value,
+                deliveryDate: document.getElementById('quoteDeliveryDate').value,
+                notes: document.getElementById('quoteNotes').value.trim(),
+                status: 'sent',
+                centerId: selectedCenterId || null,
+                centerName: selectedCenterId ? allCenters.find(c => c.id === selectedCenterId)?.name : null,
+                requestedBy: currentUser.uid,
+                requestedByName: userData.name || userData.email,
+                createdAt: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, 'quotes'), quoteData);
+                showToast(`Solicitud de cotización enviada a ${selectedSuppliers.length} proveedor(es)`, 'success');
+                closeModal('requestQuoteModal');
+                document.getElementById('requestQuoteForm').reset();
+                resetQuoteItems();
+            } catch (error) {
+                console.error('Error sending quote request:', error);
+                showToast('Error al enviar solicitud de cotización', 'error');
+            }
+        }
+
+        // Purchase Order Actions
+        async function confirmPurchaseOrder(orderId) {
+            try {
+                await updateDoc(doc(db, 'purchaseOrders', orderId), {
+                    status: 'confirmed',
+                    confirmedAt: serverTimestamp(),
+                    confirmedBy: currentUser.uid,
+                    lastUpdate: serverTimestamp()
+                });
+
+                showToast('Orden de compra confirmada', 'success');
+                loadPurchaseOrders();
+            } catch (error) {
+                console.error('Error confirming purchase order:', error);
+                showToast('Error al confirmar orden de compra', 'error');
+            }
+        }
+
+        async function markInTransit(orderId) {
+            try {
+                await updateDoc(doc(db, 'purchaseOrders', orderId), {
+                    status: 'in_transit',
+                    inTransitAt: serverTimestamp(),
+                    lastUpdate: serverTimestamp()
+                });
+
+                showToast('Orden marcada como en tránsito', 'success');
+                loadPurchaseOrders();
+            } catch (error) {
+                console.error('Error marking order as in transit:', error);
+                showToast('Error al marcar orden en tránsito', 'error');
+            }
+        }
+
+        async function markDelivered(orderId) {
+            try {
+                const orderDoc = await getDoc(doc(db, 'purchaseOrders', orderId));
+                if (orderDoc.exists()) {
+                    const orderData = orderDoc.data();
+
+                    await updateDoc(doc(db, 'purchaseOrders', orderId), {
+                        status: 'delivered',
+                        deliveredAt: serverTimestamp(),
+                        lastUpdate: serverTimestamp()
+                    });
+
+                    // TODO: Automatically update inventory with received items
+                    // This would require integration with the inventory system
+
+                    showToast('Orden marcada como entregada', 'success');
+                    loadPurchaseOrders();
+                }
+            } catch (error) {
+                console.error('Error marking order as delivered:', error);
+                showToast('Error al marcar orden como entregada', 'error');
+            }
+        }
+
+        // Helper functions for purchase orders
+        function createPurchaseOrderForSupplier(supplierId) {
+            populatePurchaseOrderData();
+            document.getElementById('purchaseOrderSupplier').value = supplierId;
+            resetPurchaseOrderItems();
+            openModal('createPurchaseOrderModal');
+        }
+
+        async function viewPurchaseOrder(orderId) {
+            // TODO: Implement detailed view modal for purchase orders
+            console.log('Viewing purchase order:', orderId);
+            showToast('Vista detallada de orden de compra en desarrollo', 'info');
+        }
+
+        async function editPurchaseOrder(orderId) {
+            // TODO: Implement edit functionality for purchase orders
+            console.log('Editing purchase order:', orderId);
+            showToast('Edición de orden de compra en desarrollo', 'info');
+        }
+
+        async function editSupplier(supplierId) {
+            // TODO: Implement edit functionality for suppliers
+            console.log('Editing supplier:', supplierId);
+            showToast('Edición de proveedor en desarrollo', 'info');
+        }
+
+        // Make functions global for onclick handlers
+        window.viewSupplierProducts = viewSupplierProducts;
+        window.requestQuote = requestQuote;
+        window.editSupplier = editSupplier;
+        window.createPurchaseOrderForSupplier = createPurchaseOrderForSupplier;
+        window.addPurchaseOrderItem = addPurchaseOrderItem;
+        window.removePurchaseOrderItem = removePurchaseOrderItem;
+        window.calculatePurchaseOrderItemTotal = calculatePurchaseOrderItemTotal;
+        window.addQuoteItem = addQuoteItem;
+        window.removeQuoteItem = removeQuoteItem;
+        window.viewPurchaseOrder = viewPurchaseOrder;
+        window.editPurchaseOrder = editPurchaseOrder;
+        window.confirmPurchaseOrder = confirmPurchaseOrder;
+        window.markInTransit = markInTransit;
+        window.markDelivered = markDelivered;
+
+        // Utility Functions for Calendar and Time Log
+        function setTodayDate(inputId) {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById(inputId).value = today;
+        }
+
+        function formatDuration(hours) {
+            const wholeHours = Math.floor(hours);
+            const minutes = Math.round((hours - wholeHours) * 60);
+            return `${wholeHours}:${minutes.toString().padStart(2, '0')}`;
+        }
+
+        function getWeekStart(date) {
+            const start = new Date(date);
+            const day = start.getDay();
+            const diff = start.getDate() - day;
+            start.setDate(diff);
+            start.setHours(0, 0, 0, 0);
+            return start;
+        }
+
+        // Event handlers for calendar and time log
+        function openDayEvents(date) {
+            // TODO: Implement day events modal
+            console.log('Opening events for', date);
+        }
+
+        function viewEvent(eventId) {
+            // TODO: Implement event details modal
+            console.log('Viewing event', eventId);
+        }
+
+        async function editTimeEntry(entryId) {
+            // TODO: Implement edit time entry
+            console.log('Editing time entry', entryId);
+        }
+
+        async function deleteTimeEntry(entryId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar esta entrada de tiempo?')) {
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, 'timeEntries', entryId));
+                showToast('Entrada eliminada correctamente', 'success');
+                loadTimeLog();
+            } catch (error) {
+                console.error('Error deleting time entry:', error);
+                showToast('Error al eliminar entrada', 'error');
+            }
+        }
+
+        // Accounting Functions
+        async function loadAccounting() {
+            try {
+                await loadTransactions();
+                await loadBudgets();
+                await updateFinancialSummary();
+                showAccountingTab(currentAccountingTab);
+            } catch (error) {
+                console.error('Error loading accounting:', error);
+                showToast('Error al cargar contabilidad', 'error');
+            }
+        }
+
+        async function loadTransactions() {
+            try {
+                let transactionsQuery = collection(db, 'transactions');
+
+                if (selectedCenterId) {
+                    transactionsQuery = query(
+                        transactionsQuery,
+                        where('centerId', '==', selectedCenterId),
+                        orderBy('date', 'desc')
+                    );
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    transactionsQuery = query(
+                        transactionsQuery,
+                        where('centerId', 'in', userData.centerIds || []),
+                        orderBy('date', 'desc')
+                    );
+                } else {
+                    transactionsQuery = query(transactionsQuery, orderBy('date', 'desc'));
+                }
+
+                const snapshot = await getDocs(transactionsQuery);
+                allTransactions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderTransactions(allTransactions);
+            } catch (error) {
+                console.error('Error loading transactions:', error);
+            }
+        }
+
+        async function loadBudgets() {
+            try {
+                let budgetsQuery = collection(db, 'budgets');
+
+                if (selectedCenterId) {
+                    budgetsQuery = query(budgetsQuery, where('centerId', '==', selectedCenterId));
+                } else if (userData.role !== 'LIFE_ADMIN') {
+                    budgetsQuery = query(budgetsQuery, where('centerId', 'in', userData.centerIds || []));
+                }
+
+                const snapshot = await getDocs(budgetsQuery);
+                allBudgets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                renderBudgets(allBudgets);
+            } catch (error) {
+                console.error('Error loading budgets:', error);
+            }
+        }
+
+        function showAccountingTab(tabName) {
+            currentAccountingTab = tabName;
+
+            // Update tab buttons
+            document.querySelectorAll('.accounting-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showAccountingTab('${tabName}')"]`).classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.accounting-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`accounting${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
+
+            // Load specific content
+            switch (tabName) {
+                case 'overview':
+                    loadAccountingOverview();
+                    break;
+                case 'transactions':
+                    loadTransactions();
+                    break;
+                case 'budgets':
+                    loadBudgets();
+                    break;
+            }
+        }
+
+        async function loadAccountingOverview() {
+            renderCenterFinancialSummary();
+        }
+
+        function renderCenterFinancialSummary() {
+            const container = document.getElementById('centerFinancialSummary');
+            
+            if (allCenters.length === 0) {
+                container.innerHTML = '<p class="text-center text-secondary">No hay centros disponibles</p>';
+                return;
+            }
+
+            container.innerHTML = allCenters.map(center => {
+                const centerTransactions = allTransactions.filter(t => t.centerId === center.id);
+                const currentMonth = new Date().toISOString().slice(0, 7);
+                const monthlyIncome = centerTransactions
+                    .filter(t => t.type === 'income' && t.date?.startsWith(currentMonth))
+                    .reduce((sum, t) => sum + (t.amount || 0), 0);
+                const monthlyExpenses = centerTransactions
+                    .filter(t => t.type === 'expense' && t.date?.startsWith(currentMonth))
+                    .reduce((sum, t) => sum + (t.amount || 0), 0);
+
+                return `
+                    <div class="financial-summary-card">
+                        <div class="financial-summary-header">
+                            <div class="financial-summary-center">${center.name}</div>
+                            <div class="financial-summary-period">Este mes</div>
+                        </div>
+                        <div class="financial-summary-metrics">
+                            <div class="financial-metric">
+                                <div class="financial-metric-value">€${monthlyIncome.toFixed(0)}</div>
+                                <div class="financial-metric-label">Ingresos</div>
+                            </div>
+                            <div class="financial-metric">
+                                <div class="financial-metric-value">€${monthlyExpenses.toFixed(0)}</div>
+                                <div class="financial-metric-label">Gastos</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderTransactions(transactions) {
+            const transactionsTableBody = document.getElementById('transactionsTableBody');
+
+            if (transactions.length === 0) {
+                transactionsTableBody.innerHTML = '<tr><td colspan="8" class="text-center text-secondary">No hay transacciones registradas</td></tr>';
+                return;
+            }
+
+            transactionsTableBody.innerHTML = transactions.map(transaction => `
+                <tr>
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>
+                        <span class="transaction-type-${transaction.type}">
+                            ${transaction.type === 'income' ? 'Ingreso' : 'Gasto'}
+                        </span>
+                    </td>
+                    <td>${transaction.description}</td>
+                    <td>${transaction.centerName || 'Sin asignar'}</td>
+                    <td>${transaction.category}</td>
+                    <td>
+                        <span class="transaction-amount-${transaction.type === 'income' ? 'positive' : 'negative'}">
+                            ${transaction.type === 'income' ? '+' : '-'}${formatCurrency(transaction.amount)}
+                        </span>
+                    </td>
+                    <td><span class="badge badge-${transaction.status === 'completed' ? 'active' : 'pending'}">${getTransactionStatusName(transaction.status)}</span></td>
+                    <td>
+                        <div class="flex gap-1">
+                            <button class="btn btn-small btn-outline" onclick="editTransaction('${transaction.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-small btn-danger" onclick="deleteTransaction('${transaction.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderBudgets(budgets) {
+            const budgetsGrid = document.getElementById('budgetsGrid');
+
+            if (budgets.length === 0) {
+                budgetsGrid.innerHTML = '<div class="col-span-2"><p class="text-center text-secondary">No hay presupuestos configurados</p></div>';
+                return;
+            }
+
+            budgetsGrid.innerHTML = budgets.map(budget => {
+                const totalBudget = budget.categories?.reduce((sum, cat) => sum + (cat.amount || 0), 0) || 0;
+                const spent = calculateBudgetSpent(budget);
+                const percentage = totalBudget > 0 ? (spent / totalBudget) * 100 : 0;
+                const remaining = totalBudget - spent;
+
+                return `
+                    <div class="budget-card">
+                        <div class="budget-header">
+                            <div>
+                                <div class="budget-title">${budget.centerName || 'Centro desconocido'}</div>
+                                <div class="budget-period">${formatBudgetPeriod(budget.period)} - ${formatDate(budget.startDate)} a ${formatDate(budget.endDate)}</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <button class="btn btn-small btn-outline" onclick="editBudget('${budget.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="budget-progress">
+                            <div class="budget-progress-bar">
+                                <div class="budget-progress-fill ${percentage > 90 ? 'danger' : percentage > 75 ? 'warning' : ''}" 
+                                     style="width: ${Math.min(percentage, 100)}%"></div>
+                            </div>
+                        </div>
+                        <div class="budget-details">
+                            <div class="budget-spent">Gastado: ${formatCurrency(spent)}</div>
+                            <div class="budget-remaining">Restante: ${formatCurrency(remaining)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function updateFinancialSummary() {
+            const currentMonth = new Date().toISOString().slice(0, 7);
+            
+            const monthlyIncome = allTransactions
+                .filter(t => t.type === 'income' && t.date?.startsWith(currentMonth))
+                .reduce((sum, t) => sum + (t.amount || 0), 0);
+            
+            const monthlyExpenses = allTransactions
+                .filter(t => t.type === 'expense' && t.date?.startsWith(currentMonth))
+                .reduce((sum, t) => sum + (t.amount || 0), 0);
+            
+            const netProfit = monthlyIncome - monthlyExpenses;
+            
+            const pendingPayments = allTransactions
+                .filter(t => t.status === 'pending')
+                .reduce((sum, t) => sum + (t.amount || 0), 0);
+
+            document.getElementById('totalIncome').textContent = formatCurrency(monthlyIncome);
+            document.getElementById('totalExpenses').textContent = formatCurrency(monthlyExpenses);
+            document.getElementById('netProfit').textContent = formatCurrency(netProfit);
+            document.getElementById('netProfit').style.color = netProfit >= 0 ? 'var(--success)' : 'var(--error)';
+            document.getElementById('pendingPayments').textContent = formatCurrency(pendingPayments);
+        }
+
+        async function populateTransactionCenters() {
+            try {
+                const transactionCenterGroup = document.getElementById('transactionCenterGroup');
+                const transactionCenter = document.getElementById('transactionCenter');
+
+                if (selectedCenterId) {
+                    transactionCenterGroup.style.display = 'none';
+                    transactionCenter.value = selectedCenterId;
+                } else {
+                    transactionCenterGroup.style.display = 'block';
+                    transactionCenter.innerHTML = '<option value="">Seleccionar centro</option>' +
+                        allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+                }
+            } catch (error) {
+                console.error('Error populating transaction centers:', error);
+            }
+        }
+
+        async function populateBudgetCenters() {
+            try {
+                const budgetCenter = document.getElementById('budgetCenter');
+                budgetCenter.innerHTML = '<option value="">Seleccionar centro</option>' +
+                    allCenters.map(center => `<option value="${center.id}">${center.name}</option>`).join('');
+
+                if (selectedCenterId) {
+                    budgetCenter.value = selectedCenterId;
+                }
+            } catch (error) {
+                console.error('Error populating budget centers:', error);
+            }
+        }
+
+        async function handleAddTransaction(e) {
+            e.preventDefault();
+
+            const centerId = selectedCenterId || document.getElementById('transactionCenter').value || null;
+            
+            const transactionData = {
+                type: document.getElementById('transactionType').value,
+                date: document.getElementById('transactionDate').value,
+                description: document.getElementById('transactionDescription').value.trim(),
+                amount: parseFloat(document.getElementById('transactionAmount').value),
+                category: document.getElementById('transactionCategory').value,
+                centerId: centerId,
+                centerName: centerId ? allCenters.find(c => c.id === centerId)?.name : null,
+                paymentMethod: document.getElementById('transactionPaymentMethod').value,
+                status: document.getElementById('transactionStatus').value,
+                notes: document.getElementById('transactionNotes').value.trim(),
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                createdByName: userData.name || userData.email
+            };
+
+            try {
+                await addDoc(collection(db, 'transactions'), transactionData);
+                showToast('Transacción registrada correctamente', 'success');
+                closeModal('addTransactionModal');
+                document.getElementById('addTransactionForm').reset();
+                loadAccounting();
+            } catch (error) {
+                console.error('Error creating transaction:', error);
+                showToast('Error al registrar transacción', 'error');
+            }
+        }
+
+        async function handleAddBudget(e) {
+            e.preventDefault();
+
+            const budgetCategories = [];
+            document.querySelectorAll('.budget-category-item').forEach(item => {
+                const category = item.querySelector('.budget-category').value;
+                const amount = parseFloat(item.querySelector('.budget-amount').value) || 0;
+                
+                if (category && amount > 0) {
+                    budgetCategories.push({ category, amount });
+                }
+            });
+
+            if (budgetCategories.length === 0) {
+                showToast('Añade al menos una categoría con presupuesto', 'error');
+                return;
+            }
+
+            const centerId = document.getElementById('budgetCenter').value;
+            const budgetData = {
+                centerId: centerId,
+                centerName: allCenters.find(c => c.id === centerId)?.name || 'Centro desconocido',
+                period: document.getElementById('budgetPeriod').value,
+                startDate: document.getElementById('budgetStartDate').value,
+                endDate: document.getElementById('budgetEndDate').value,
+                categories: budgetCategories,
+                notes: document.getElementById('budgetNotes').value.trim(),
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid,
+                createdByName: userData.name || userData.email
+            };
+
+            try {
+                await addDoc(collection(db, 'budgets'), budgetData);
+                showToast('Presupuesto creado correctamente', 'success');
+                closeModal('addBudgetModal');
+                document.getElementById('addBudgetForm').reset();
+                resetBudgetCategories();
+                loadAccounting();
+            } catch (error) {
+                console.error('Error creating budget:', error);
+                showToast('Error al crear presupuesto', 'error');
+            }
+        }
+
+        function addBudgetCategory() {
+            const budgetCategories = document.getElementById('budgetCategories');
+            const newItem = document.createElement('div');
+            newItem.className = 'budget-category-item';
+            newItem.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; align-items: center; padding: 8px; border: 1px solid var(--border); border-radius: 4px;';
+
+            newItem.innerHTML = `
+                <div style="flex: 1;">
+                    <select class="form-select budget-category" required>
+                        <option value="">Seleccionar categoría</option>
+                        <option value="supplies">Suministros</option>
+                        <option value="maintenance">Mantenimiento</option>
+                        <option value="utilities">Servicios</option>
+                        <option value="personnel">Personal</option>
+                        <option value="equipment">Equipamiento</option>
+                    </select>
+                </div>
+                <div style="width: 120px;">
+                    <input type="number" class="form-input budget-amount" placeholder="€0.00" step="0.01" min="0" required>
+                </div>
+                <button type="button" class="btn btn-danger btn-small" onclick="removeBudgetCategory(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+
+            budgetCategories.appendChild(newItem);
+        }
+
+        function removeBudgetCategory(button) {
+            const budgetCategories = document.getElementById('budgetCategories');
+            if (budgetCategories.children.length > 1) {
+                button.closest('.budget-category-item').remove();
+            } else {
+                showToast('Debe haber al menos una categoría en el presupuesto', 'warning');
+            }
+        }
+
+        function resetBudgetCategories() {
+            const budgetCategories = document.getElementById('budgetCategories');
+            budgetCategories.innerHTML = `
+                <div class="budget-category-item" style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center; padding: 8px; border: 1px solid var(--border); border-radius: 4px;">
+                    <div style="flex: 1;">
+                        <select class="form-select budget-category" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="supplies">Suministros</option>
+                            <option value="maintenance">Mantenimiento</option>
+                            <option value="utilities">Servicios</option>
+                            <option value="personnel">Personal</option>
+                            <option value="equipment">Equipamiento</option>
+                        </select>
+                    </div>
+                    <div style="width: 120px;">
+                        <input type="number" class="form-input budget-amount" placeholder="€0.00" step="0.01" min="0" required>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-small" onclick="removeBudgetCategory(this)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        function setDefaultBudgetDates() {
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            
+            document.getElementById('budgetStartDate').value = firstDay.toISOString().split('T')[0];
+            document.getElementById('budgetEndDate').value = lastDay.toISOString().split('T')[0];
+        }
+
+        function filterTransactions() {
+            const typeFilter = document.getElementById('transactionTypeFilter').value;
+            const monthFilter = document.getElementById('transactionMonthFilter').value;
+
+            let filteredTransactions = allTransactions;
+
+            if (typeFilter) {
+                filteredTransactions = filteredTransactions.filter(t => t.type === typeFilter);
+            }
+
+            if (monthFilter) {
+                filteredTransactions = filteredTransactions.filter(t => t.date?.startsWith(monthFilter));
+            }
+
+            renderTransactions(filteredTransactions);
+        }
+
+        function calculateBudgetSpent(budget) {
+            const budgetTransactions = allTransactions.filter(t => 
+                t.centerId === budget.centerId &&
+                t.type === 'expense' &&
+                t.date >= budget.startDate &&
+                t.date <= budget.endDate
+            );
+
+            return budgetTransactions.reduce((sum, t) => sum + (t.amount || 0), 0);
+        }
+
+        function getTransactionStatusName(status) {
+            const names = {
+                'completed': 'Completado',
+                'pending': 'Pendiente',
+                'cancelled': 'Cancelado'
+            };
+            return names[status] || status;
+        }
+
+        function formatBudgetPeriod(period) {
+            const periods = {
+                'monthly': 'Mensual',
+                'quarterly': 'Trimestral',
+                'annual': 'Anual'
+            };
+            return periods[period] || period;
+        }
+
+        function generateReport() {
+            showToast('Generación de reportes en desarrollo', 'info');
+        }
+
+        async function editTransaction(transactionId) {
+            showToast('Edición de transacciones en desarrollo', 'info');
+        }
+
+        async function deleteTransaction(transactionId) {
+            if (!confirm('¿Estás seguro de que quieres eliminar esta transacción?')) {
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, 'transactions', transactionId));
+                showToast('Transacción eliminada correctamente', 'success');
+                loadAccounting();
+            } catch (error) {
+                console.error('Error deleting transaction:', error);
+                showToast('Error al eliminar transacción', 'error');
+            }
+        }
+
+        async function editBudget(budgetId) {
+            showToast('Edición de presupuestos en desarrollo', 'info');
+        }
+
+        // Make accounting functions global
+        window.showAccountingTab = showAccountingTab;
+        window.addBudgetCategory = addBudgetCategory;
+        window.removeBudgetCategory = removeBudgetCategory;
+        window.generateReport = generateReport;
+        window.editTransaction = editTransaction;
+        window.deleteTransaction = deleteTransaction;
+        window.editBudget = editBudget;
 
         // Initialize app when DOM is loaded
         document.addEventListener('DOMContentLoaded', initApp);
